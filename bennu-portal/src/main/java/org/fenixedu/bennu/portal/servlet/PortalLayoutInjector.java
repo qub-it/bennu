@@ -49,6 +49,8 @@ public class PortalLayoutInjector implements Filter {
 
     private static final String SKIP_LAYOUT_INJECTION = "$$SKIP_LAYOUT_INJECTION$$";
 
+    private static ThreadLocal<Map<String, Object>> contextExtensions = new ThreadLocal<Map<String, Object>>();
+
     private PebbleEngine engine;
 
     @Override
@@ -81,46 +83,58 @@ public class PortalLayoutInjector implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) resp;
+        try {
+            HttpServletRequest request = (HttpServletRequest) req;
+            HttpServletResponse response = (HttpServletResponse) resp;
 
-        // Wrap the response so it may be later rewritten if necessary
-        PortalResponseWrapper wrapper = new PortalResponseWrapper(response);
+            // Wrap the response so it may be later rewritten if necessary
+            PortalResponseWrapper wrapper = new PortalResponseWrapper(response);
 
-        chain.doFilter(request, wrapper);
+            chain.doFilter(request, wrapper);
 
-        MenuFunctionality functionality = BennuPortalDispatcher.getSelectedFunctionality(request);
-        if (functionality != null && wrapper.hasData() && request.getAttribute(SKIP_LAYOUT_INJECTION) == null) {
-            PortalBackend backend = PortalBackendRegistry.getPortalBackend(functionality.getProvider());
-            if (backend.requiresServerSideLayout()) {
-                String body = wrapper.getContent();
-                try {
-                    PortalConfiguration config = PortalConfiguration.getInstance();
-                    Map<String, Object> ctx = new HashMap<>();
-                    List<MenuItem> path = functionality.getPathFromRoot();
-                    ctx.put("loggedUser", Authenticate.getUser());
-                    ctx.put("body", body);
-                    ctx.put("functionality", functionality);
-                    ctx.put("config", config);
-                    ctx.put("topLevelMenu", config.getMenu().getUserMenuStream());
-                    ctx.put("contextPath", request.getContextPath());
-                    ctx.put("themePath", request.getContextPath() + "/themes/" + config.getTheme());
-                    ctx.put("devMode", CoreConfiguration.getConfiguration().developmentMode());
-                    ctx.put("pathFromRoot", path);
-                    ctx.put("selectedTopLevel", path.get(0));
-                    ctx.put("locales", CoreConfiguration.supportedLocales());
-                    ctx.put("currentLocale", I18N.getLocale());
-                    PebbleTemplate template = engine.getTemplate(config.getTheme() + "/" + functionality.resolveLayout());
-                    template.evaluate(response.getWriter(), ctx, I18N.getLocale());
-                } catch (PebbleException e) {
-                    throw new ServletException("Could not render template!", e);
+            MenuFunctionality functionality = BennuPortalDispatcher.getSelectedFunctionality(request);
+            if (functionality != null && wrapper.hasData() && request.getAttribute(SKIP_LAYOUT_INJECTION) == null) {
+                PortalBackend backend = PortalBackendRegistry.getPortalBackend(functionality.getProvider());
+                if (backend.requiresServerSideLayout()) {
+                    String body = wrapper.getContent();
+                    try {
+                        PortalConfiguration config = PortalConfiguration.getInstance();
+                        Map<String, Object> ctx = new HashMap<>();
+                        List<MenuItem> path = functionality.getPathFromRoot();
+                        ctx.put("loggedUser", Authenticate.getUser());
+                        ctx.put("body", body);
+                        ctx.put("functionality", functionality);
+                        ctx.put("config", config);
+                        ctx.put("topLevelMenu", config.getMenu().getUserMenuStream());
+                        ctx.put("contextPath", request.getContextPath());
+                        ctx.put("session", request.getSession());
+                        ctx.put("themePath", request.getContextPath() + "/themes/" + config.getTheme());
+                        ctx.put("devMode", CoreConfiguration.getConfiguration().developmentMode());
+                        ctx.put("pathFromRoot", path);
+                        ctx.put("selectedTopLevel", path.get(0));
+                        ctx.put("locales", CoreConfiguration.supportedLocales());
+                        ctx.put("currentLocale", I18N.getLocale());
+
+                        Map<String, Object> requestContext = contextExtensions.get();
+                        if (requestContext != null) {
+                            ctx.putAll(requestContext);
+                        }
+
+                        PebbleTemplate template = engine.getTemplate(config.getTheme() + "/" + functionality.resolveLayout());
+                        template.evaluate(response.getWriter(), ctx, I18N.getLocale());
+                    } catch (PebbleException e) {
+                        throw new ServletException("Could not render template!", e);
+                    }
+                } else {
+                    wrapper.flushBuffer();
                 }
             } else {
                 wrapper.flushBuffer();
             }
-        } else {
-            wrapper.flushBuffer();
+        } finally {
+            contextExtensions.remove();
         }
+
     }
 
     /**
@@ -128,6 +142,10 @@ public class PortalLayoutInjector implements Filter {
      */
     public static void skipLayoutOn(HttpServletRequest request) {
         request.setAttribute(SKIP_LAYOUT_INJECTION, SKIP_LAYOUT_INJECTION);
+    }
+
+    public static void addContextExtension(Map<String, Object> requestContext) {
+        contextExtensions.set(requestContext);
     }
 
     @Override
