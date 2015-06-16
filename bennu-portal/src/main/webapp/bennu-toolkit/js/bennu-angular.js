@@ -1,3 +1,20 @@
+/*
+ * bennu-angular.js
+ * 
+ * Copyright (c) 2014, Instituto Superior Técnico. All rights reserved.
+ * 
+ * This file is part of Bennu Toolkit.
+ * 
+ * Bennu Toolkit is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * 
+ * Bennu Toolkit is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with Bennu Toolkit. If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
+
 (function () {
 	var bennuToolkit = angular.module('bennuToolkit', []);
 
@@ -7,11 +24,11 @@
 		};
 	});
 
-	bennuToolkit.directive('ngLocalizedString', ['$timeout', function($timeout) {
+	bennuToolkit.directive('bennuLocalizedString', ['$timeout', function($timeout) {
 	  return {
 	    restrict: 'A',
 	    scope: {
-	      model: '=ngLocalizedString'
+	      model: '=bennuLocalizedString'
 	    },
 	    link: function(scope, el, attr) {
 	      el.hide();
@@ -31,15 +48,47 @@
 	  }
 	}]);
 
-    bennuToolkit.directive('ngHtmlEditor', ['$timeout', function($timeout) {
+	function toolkitDirective(name, widgetProvider) {
+		bennuToolkit.directive(name, ['$timeout', function($timeout) {
+		  return {
+		    restrict: 'A',
+		    scope: {
+		      model: '=' + name
+		    },
+		    link: function(scope, el, attr) {
+		      el.hide();
+		      var handler = widgetProvider(el);
+		      scope.$watch('model', function(value) {
+		        if(value !== handler.get()) {
+		          handler.set(value);
+		        }
+		      });
+		      handler.onchange(function () {
+		        $timeout(function () {
+		          scope.model = handler.get();
+		        });
+		      });
+		    }
+		  }
+		}]);
+	}
+
+	toolkitDirective('bennuDateTime', Bennu.datetime.createDateTimeWidget);
+	toolkitDirective('bennuDate', Bennu.datetime.createDateWidget);
+	toolkitDirective('bennuTime', Bennu.datetime.createTimeWidget);
+	toolkitDirective('bennuUserAutocomplete', Bennu.userAutocomplete.createWidget);
+
+    bennuToolkit.directive('bennuHtmlEditor', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
             scope: {
-                model: '=ngHtmlEditor'
+				model: '=bennuHtmlEditor',
+				onImageAdded: '=onImageAdded'
             },
             link: function(scope, el, attr) {
                 el.hide();
-                var isLocalized = el[0].hasAttribute('bennu-localized-string');
+
+				var isLocalized = el[0].hasAttribute('bennu-localized-string');
                 var handler = Bennu.htmlEditor.createWidget(el);
                 scope.$watch('model', function(value) {
                     if(isLocalized) {
@@ -54,7 +103,14 @@
                         scope.model = isLocalized ? JSON.parse(handler.get()) : handler.get();
                     });
                 });
-            }
+
+
+				el.data("fileHandler", function (files, callback) {
+					if (scope.onImageAdded) {
+						scope.onImageAdded(files, callback, handler)
+					}
+				});
+			}
         }
     }]);
 
@@ -79,28 +135,5 @@
 	    }
 	  }
 	});
-	
-	
-	bennuToolkit.directive('ngUserAutocomplete', ['$timeout', function($timeout) {
-		return {
-			restrict: 'A',
-			scope : {
-				model : '=ngUserAutocomplete'
-			},
-			link : function(scope, el, attr) {
-				var result = Bennu.userAutocomplete.createWidget(el);
-				
-				scope.$watch('model', function(value) {
-					result.set(value);
-				});
-				
-				result.onchange(function() {
-					$timeout(function() {
-						scope.model = result.get();
-					});
-				});
-			}
-		};
-	}]);
 
 })();

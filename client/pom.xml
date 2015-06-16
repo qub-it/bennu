@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>bennu-client-aggregator</artifactId>
-    <version>3.4.1</version>
+    <version>3.4.2-SNAPSHOT</version>
     <name>Bennu Framework Client Components Aggregating Pom</name>
     <packaging>pom</packaging>
 
@@ -27,4 +27,15 @@
         <module>bennu-scheduler-ui</module>
         <module>bundle</module>
     </modules>
+	
+	<distributionManagement>
+               <repository>
+                       <id>ulisboa-repo</id>
+                       <url>http://ul-nexjen.ulisboa.pt:8081/nexus/content/repositories/releases/</url>
+               </repository>
+               <snapshotRepository>
+                       <id>ulisboa-repo</id>
+                       <url>http://ul-nexjen.ulisboa.pt:8081/nexus/content/repositories/snapshots/</url>
+               </snapshotRepository>
+       </distributionManagement>
 </project>

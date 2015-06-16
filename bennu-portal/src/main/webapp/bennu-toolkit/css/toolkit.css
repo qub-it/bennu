@@ -18,18 +18,8 @@ button.voiceBtn {
 
 .bennu-html-editor-editor {
     margin-top: 15px;
-    min-height: 100px;
-    border: 1px solid #ccc;
-    padding: 5px;
-    outline: 0;
-    border-radius: 4px;
-    padding: 6px 12px;
-}
-
-.bennu-html-editor-editor:focus {
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
-    border-color: #66afe9;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    height:500px;
+    overflow-y: scroll;
 }
 
 .bennu-html-editor-input .bennu-localized-string-group {
@@ -284,7 +274,7 @@ button.voiceBtn {
     content: '';
     display: inline-block;
     border-left: 7px solid transparent;
-    border-bottom: 7px solid #428bca;
+    border-bottom: 7px solid #007FFF;
     border-top-color: rgba(0, 0, 0, 0.2);
     position: absolute;
     bottom: 4px;
@@ -293,7 +283,7 @@ button.voiceBtn {
 
 .bootstrap-datetimepicker-widget td.active,
 .bootstrap-datetimepicker-widget td.active:hover {
-    background-color: #428bca;
+    background-color: #007FFF;
     color: #fff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }

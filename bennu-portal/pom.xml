@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.fenixedu</groupId>
         <artifactId>bennu</artifactId>
-        <version>3.4.1</version>
+        <version>3.4.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>bennu-portal</artifactId>
@@ -147,4 +147,5 @@
             <url>https://repo.fenixedu.org/fenixedu-maven-repository</url>
         </repository>
     </repositories>
+    
 </project>

@@ -1,3 +1,25 @@
+/*! 
+ * Bennu Toolkit
+ * https://github.com/FenixEdu/bennu
+ * Copyright (c) 2014 Instituto Superior Técnico
+ */
+/*
+ * bennu.js
+ * 
+ * Copyright (c) 2014, Instituto Superior Técnico. All rights reserved.
+ * 
+ * This file is part of Bennu Toolkit.
+ * 
+ * Bennu Toolkit is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * 
+ * Bennu Toolkit is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with Bennu Toolkit. If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
+
 (function () {
 
     window.Bennu = window.Bennu || {};
@@ -5,12 +27,8 @@
     $(function(){
 	Bennu.loaded = true;
     })
-    
-    if(window.BennuPortal) {
-        $.extend(window.Bennu, window.BennuPortal);
-    }
 
-    Bennu.version = "1.0.0";
+    Bennu.version = "${project.version}";
 
     Bennu.toString = function () {
         return "Bennu Toolkit v" + Bennu.version;
@@ -64,6 +82,53 @@
         var q = $("html");
         q.trigger.apply(q, arguments);
     };
+
+    // Utils
+    // ---------------------------------------------
+
+    Bennu.utils =  Bennu.utils || {};
+
+    Bennu.utils.updateAttrs = function(input, widgetInput, allowedAttrs){
+        input = $(input);
+
+        var cache = widgetInput.data("attrCache");
+
+        if (cache){
+            // If the attribute was removed after attaching to dom;
+            for (var i = 0; i < cache.length; i++) {
+                var attr = cache[i];
+                if (Bennu.utils.hasAttr(input, attr)){
+                    widgetInput.removeAttr(attr);
+                }
+            };
+        }
+
+        cache = [];
+
+        $.each(input[0].attributes, function(i, attrib){
+            if (!(allowedAttrs.indexOf(attrib.name) < 0)){
+                widgetInput.attr(attrib.name,attrib.value);
+                cache.push(attrib.name);
+            }
+        });
+
+        widgetInput.data("attrCache", cache)        
+    }
+
+    Bennu.utils.hasAttr = function(obj,attr){
+        var val = obj.attr(attr);
+        return (typeof val !== typeof undefined && val !== false);
+    }
+
+    Bennu.utils.replaceRequired = function(input){
+        input = $(input);
+
+        if (Bennu.utils.hasAttr(input,'required')) {
+            input.removeAttr("required");
+            input.attr("bennu-required","required");
+        }
+    }
+
 
     Bennu.widgetHandler = Bennu.widgetHandler || {}
     Bennu.widgetHandler.makeFor = function (e, onremove){
