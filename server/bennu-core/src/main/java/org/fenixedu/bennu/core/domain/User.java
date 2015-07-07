@@ -244,7 +244,7 @@ public final class User extends User_Base implements Principal {
 
     public boolean matchesPassword(final String password) {
         if (getPassword() == null) {
-            return true;
+            return false;
         }
         final String hash = Hashing.sha512().hashString(getSalt() + password, Charsets.UTF_8).toString();
         return hash.equals(getPassword());
