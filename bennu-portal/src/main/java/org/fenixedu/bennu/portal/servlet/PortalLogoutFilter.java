@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.core.util.CoreConfiguration;
+import org.fenixedu.bennu.portal.BennuPortalConfiguration;
+
+import com.google.common.base.Strings;
 
 /**
  * Specialized filter that logs the current user out.
@@ -46,8 +49,12 @@ public class PortalLogoutFilter implements Filter {
             // Send to the CAS logout page
             resp.sendRedirect(CoreConfiguration.casConfig().getCasLogoutUrl());
         } else {
-            // Send to the application's root
-            resp.sendRedirect(req.getContextPath() + "/");
+            String logoutURL = BennuPortalConfiguration.getConfiguration().logoutURL();
+            if (Strings.isNullOrEmpty(logoutURL)) {
+                resp.sendRedirect(req.getContextPath() + "/");
+            } else {
+                resp.sendRedirect(logoutURL);
+            }
         }
     }
 
