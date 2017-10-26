@@ -80,7 +80,7 @@
         // ------
         var inputs = $("[" + Bennu.group.attr + "]");
 
-        if (inputs.size() > 0) {
+        if (inputs.length > 0) {
             Bennu.group.setupModal();
         }
 
