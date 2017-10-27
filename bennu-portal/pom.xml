@@ -48,7 +48,7 @@
                             <jsSourceDir>bennu-toolkit/js</jsSourceDir>
                             <jsSourceFiles>
                                 <jsSourceFile>moment.js</jsSourceFile>
-                                <jsSourceFile>datepicker.js</jsSourceFile>
+                                <jsSourceFile>bootstrap-datetimepicker.js</jsSourceFile>
                                 <jsSourceFile>jquery.fullscreen.js</jsSourceFile>
                                 <jsSourceFile>jquery.hotkeys.js</jsSourceFile>
                                 <jsSourceFile>sanitize.js</jsSourceFile>
@@ -83,7 +83,7 @@
                             <jsSourceDir>bennu-toolkit/js</jsSourceDir>
                             <jsSourceFiles>
                                 <jsSourceFile>moment.js</jsSourceFile>
-                                <jsSourceFile>datepicker.js</jsSourceFile>
+                                <jsSourceFile>bootstrap-datetimepicker.js</jsSourceFile>
                                 <jsSourceFile>jquery.fullscreen.js</jsSourceFile>
                                 <jsSourceFile>jquery.hotkeys.js</jsSourceFile>
                                 <jsSourceFile>sanitize.js</jsSourceFile>
