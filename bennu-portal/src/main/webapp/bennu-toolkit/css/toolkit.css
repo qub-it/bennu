@@ -1,5 +1,6 @@
 @import url(font-awesome.min.css);
 @import url(bootstrap-datetimepicker.min.css);
+@import url(jquery-ui.min.css);
 
 [bennu-html-editor] {
     display: none !important;

@@ -49,6 +49,7 @@
                             <jsSourceFiles>
                                 <jsSourceFile>moment.js</jsSourceFile>
                                 <jsSourceFile>bootstrap-datetimepicker.js</jsSourceFile>
+                                <jsSourceFile>jquery-ui.min.js</jsSourceFile>
                                 <jsSourceFile>jquery.fullscreen.js</jsSourceFile>
                                 <jsSourceFile>jquery.hotkeys.js</jsSourceFile>
                                 <jsSourceFile>sanitize.js</jsSourceFile>
@@ -84,6 +85,7 @@
                             <jsSourceFiles>
                                 <jsSourceFile>moment.js</jsSourceFile>
                                 <jsSourceFile>bootstrap-datetimepicker.js</jsSourceFile>
+                                <jsSourceFile>jquery-ui.min.js</jsSourceFile>
                                 <jsSourceFile>jquery.fullscreen.js</jsSourceFile>
                                 <jsSourceFile>jquery.hotkeys.js</jsSourceFile>
                                 <jsSourceFile>sanitize.js</jsSourceFile>
