@@ -71,6 +71,11 @@ public final class User extends User_Base implements Principal {
     private static Map<String, User> map = new ConcurrentHashMap<>();
 
     public static final String USERNAME_CHANGE_SIGNAL = "user.username.change";
+    public static final String USERNAME_CHANGE_SIGNAL_WITH_OLD_USERNAME = "user.username.change.with.old.username";
+
+    public static final String USERNAME_CHANGE_SIGNAL_WITH_OLD_USERNAME_MAP_USER = "user";
+    public static final String USERNAME_CHANGE_SIGNAL_WITH_OLD_USERNAME_MAP_OLD_USERNAME = "oldUsername";
+    public static final String USERNAME_CHANGE_SIGNAL_WITH_OLD_USERNAME_MAP_NEW_USERNAME = "newUsername";
 
     public static final Comparator<User> COMPARATOR_BY_NAME =
             Comparator.comparing(User::getDisplayName).thenComparing(User::getUsername);
@@ -145,6 +150,10 @@ public final class User extends User_Base implements Principal {
                 profile.setAvatarUrl(newAvatarURL);
             }
         }
+        Signal.emit(USERNAME_CHANGE_SIGNAL_WITH_OLD_USERNAME,
+                Map.of(USERNAME_CHANGE_SIGNAL_WITH_OLD_USERNAME_MAP_OLD_USERNAME, oldUsername,
+                        USERNAME_CHANGE_SIGNAL_WITH_OLD_USERNAME_MAP_NEW_USERNAME, username,
+                        USERNAME_CHANGE_SIGNAL_WITH_OLD_USERNAME_MAP_USER, this));
         Signal.emit(USERNAME_CHANGE_SIGNAL, new DomainObjectEvent<User>(this));
     }
 
