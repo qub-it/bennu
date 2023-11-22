@@ -1,0 +1,369 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 4297064448 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2843), pid=19550, tid=19570
+#
+# JRE version:  (11.0.6+10) (build )
+# Java VM: OpenJDK 64-Bit Server VM (11.0.6+10, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Core dump will be written. Default location: Core dumps may be processed with "/lib/systemd/systemd-coredump %P %u %g %s %t 9223372036854775808 %e" (or dumping to /home/omnis-dev/development/workspaces/solution/fenixEdu/bennu/bennu-portal/core.19550)
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Xms1025m -Xms4098m -Dorg.apache.jasper.compiler.Parser.STRICT_QUOTE_ESCAPING=false -Dmaven.javadoc.skip=true -Dclassworlds.conf=/home/omnis-dev/development/maven/bin/m2.conf -Dmaven.home=/home/omnis-dev/development/maven -Dlibrary.jansi.path=/home/omnis-dev/development/maven/lib/jansi-native -Dmaven.multiModuleProjectDirectory=/home/omnis-dev/development/workspaces/solution/fenixEdu/bennu/bennu-portal org.codehaus.plexus.classworlds.launcher.Launcher clean install
+
+Host: Intel(R) Core(TM) i7-8750H CPU @ 2.20GHz, 12 cores, 15G, Ubuntu 18.04.4 LTS
+Time: Mon Apr 26 18:39:52 2021 Europe elapsed time: 0 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f6078014800):  JavaThread "Unknown thread" [_thread_in_vm, id=19570, stack(0x00007f607fe1f000,0x00007f607ff20000)]
+
+Stack: [0x00007f607fe1f000,0x00007f607ff20000],  sp=0x00007f607ff1e1e0,  free space=1020k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xe31a38]  VMError::report_and_die(int, char const*, char const*, __va_list_tag*, Thread*, unsigned char*, void*, void*, char const*, int, unsigned long)+0x348
+V  [libjvm.so+0xe326fb]  VMError::report_and_die(Thread*, char const*, int, unsigned long, VMErrorType, char const*, __va_list_tag*)+0x2b
+V  [libjvm.so+0x68ddb5]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*, ...)+0xd5
+V  [libjvm.so+0xc0a438]  os::pd_commit_memory_or_exit(char*, unsigned long, unsigned long, bool, char const*)+0x108
+V  [libjvm.so+0xc0206d]  os::commit_memory_or_exit(char*, unsigned long, unsigned long, bool, char const*)+0x1d
+V  [libjvm.so+0x7ab86c]  G1PageBasedVirtualSpace::commit_preferred_pages(unsigned long, unsigned long)+0x6c
+V  [libjvm.so+0x7abb0e]  G1PageBasedVirtualSpace::commit(unsigned long, unsigned long)+0x5e
+V  [libjvm.so+0x7b7b80]  G1RegionsLargerThanCommitSizeMapper::commit_regions(unsigned int, unsigned long, WorkGang*)+0x40
+V  [libjvm.so+0x833b19]  HeapRegionManager::commit_regions(unsigned int, unsigned long, WorkGang*)+0x89
+V  [libjvm.so+0x834772]  HeapRegionManager::make_regions_available(unsigned int, unsigned int, WorkGang*)+0x42
+V  [libjvm.so+0x834bd9]  HeapRegionManager::expand_at(unsigned int, unsigned int, WorkGang*) [clone .part.22]+0x119
+V  [libjvm.so+0x76992f]  G1CollectedHeap::expand(unsigned long, WorkGang*, double*)+0xdf
+V  [libjvm.so+0x76a01d]  G1CollectedHeap::initialize()+0x66d
+V  [libjvm.so+0xdec401]  Universe::initialize_heap()+0x41
+V  [libjvm.so+0xdec6c6]  universe_init()+0x46
+V  [libjvm.so+0x854e27]  init_globals()+0x57
+V  [libjvm.so+0xdc4437]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x357
+V  [libjvm.so+0x911902]  JNI_CreateJavaVM+0x52
+C  [libjli.so+0x4ac6]  JavaMain+0x86
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000000000908c90, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x00007f607803f800 GCTaskThread "GC Thread#0" [stack: 0x00007f607c30a000,0x00007f607c40a000] [id=19571]
+  0x00007f6078060000 ConcurrentGCThread "G1 Main Marker" [stack: 0x00007f6060109000,0x00007f6060209000] [id=19572]
+  0x00007f6078061800 ConcurrentGCThread "G1 Conc#0" [stack: 0x00007f6060007000,0x00007f6060107000] [id=19573]
+
+[error occurred during error reporting (printing all threads), id 0xb, SIGSEGV (0xb) at pc=0x00007f607e3afb70]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f60780115b0] Heap_lock - owner thread: 0x00007f6078014800
+
+Heap address: 0x00000006ffe00000, size: 4098 MB, Compressed Oops mode: Non-zero based: 0x00000006ffe00000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (3 events):
+Event: 0.003 Protecting memory [0x00007f607fe1f000,0x00007f607fe23000] with protection modes 0
+Event: 0.004 Loaded shared library /home/omnis-dev/development/jdk-11.0.6+10/lib/libzip.so
+Event: 0.004 Loaded shared library /home/omnis-dev/development/jdk-11.0.6+10/lib/libjimage.so
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 103:02 550327                            /home/omnis-dev/development/jdk-11.0.6+10/bin/java
+00600000-00601000 r--p 00000000 103:02 550327                            /home/omnis-dev/development/jdk-11.0.6+10/bin/java
+00601000-00602000 rw-p 00001000 103:02 550327                            /home/omnis-dev/development/jdk-11.0.6+10/bin/java
+00905000-00926000 rw-p 00000000 00:00 0                                  [heap]
+7f6044000000-7f6044021000 rw-p 00000000 00:00 0 
+7f6044021000-7f6048000000 ---p 00000000 00:00 0 
+7f604b974000-7f604c000000 rw-p 00000000 00:00 0 
+7f604c000000-7f604c021000 rw-p 00000000 00:00 0 
+7f604c021000-7f6050000000 ---p 00000000 00:00 0 
+7f60500e6000-7f60527ed000 rw-p 00000000 00:00 0 
+7f60527ed000-7f605c000000 ---p 00000000 00:00 0 
+7f605c000000-7f605c021000 rw-p 00000000 00:00 0 
+7f605c021000-7f6060000000 ---p 00000000 00:00 0 
+7f6060005000-7f6060006000 ---p 00000000 00:00 0 
+7f6060006000-7f6060107000 rw-p 00000000 00:00 0 
+7f6060107000-7f6060108000 ---p 00000000 00:00 0 
+7f6060108000-7f6060910000 rw-p 00000000 00:00 0 
+7f6060910000-7f6060b80000 rwxp 00000000 00:00 0 
+7f6060b80000-7f6060ea1000 ---p 00000000 00:00 0 
+7f6060ea1000-7f6061111000 rwxp 00000000 00:00 0 
+7f6061111000-7f60683d8000 ---p 00000000 00:00 0 
+7f60683d8000-7f6068648000 rwxp 00000000 00:00 0 
+7f6068648000-7f606f910000 ---p 00000000 00:00 0 
+7f606f910000-7f6078000000 r--s 00000000 103:02 550982                    /home/omnis-dev/development/jdk-11.0.6+10/lib/modules
+7f6078000000-7f6078098000 rw-p 00000000 00:00 0 
+7f6078098000-7f607c000000 ---p 00000000 00:00 0 
+7f607c005000-7f607c308000 rw-p 00000000 00:00 0 
+7f607c308000-7f607c309000 ---p 00000000 00:00 0 
+7f607c309000-7f607c40f000 rw-p 00000000 00:00 0 
+7f607c40f000-7f607c4f5000 ---p 00000000 00:00 0 
+7f607c4f5000-7f607c4fa000 rw-p 00000000 00:00 0 
+7f607c4fa000-7f607c5e0000 ---p 00000000 00:00 0 
+7f607c5e0000-7f607c5fb000 r-xp 00000000 103:02 550963                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libjimage.so
+7f607c5fb000-7f607c7fb000 ---p 0001b000 103:02 550963                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libjimage.so
+7f607c7fb000-7f607c7fd000 r--p 0001b000 103:02 550963                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libjimage.so
+7f607c7fd000-7f607c7fe000 rw-p 0001d000 103:02 550963                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libjimage.so
+7f607c7fe000-7f607c805000 r-xp 00000000 103:02 550981                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libzip.so
+7f607c805000-7f607ca04000 ---p 00007000 103:02 550981                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libzip.so
+7f607ca04000-7f607ca05000 r--p 00006000 103:02 550981                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libzip.so
+7f607ca05000-7f607ca06000 rw-p 00007000 103:02 550981                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libzip.so
+7f607ca06000-7f607ca11000 r-xp 00000000 103:02 419962                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f607ca11000-7f607cc10000 ---p 0000b000 103:02 419962                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f607cc10000-7f607cc11000 r--p 0000a000 103:02 419962                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f607cc11000-7f607cc12000 rw-p 0000b000 103:02 419962                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f607cc12000-7f607cc18000 rw-p 00000000 00:00 0 
+7f607cc18000-7f607cc2f000 r-xp 00000000 103:02 419956                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f607cc2f000-7f607ce2e000 ---p 00017000 103:02 419956                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f607ce2e000-7f607ce2f000 r--p 00016000 103:02 419956                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f607ce2f000-7f607ce30000 rw-p 00017000 103:02 419956                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f607ce30000-7f607ce32000 rw-p 00000000 00:00 0 
+7f607ce32000-7f607ce3d000 r-xp 00000000 103:02 419966                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f607ce3d000-7f607d03c000 ---p 0000b000 103:02 419966                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f607d03c000-7f607d03d000 r--p 0000a000 103:02 419966                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f607d03d000-7f607d03e000 rw-p 0000b000 103:02 419966                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f607d03e000-7f607d046000 r-xp 00000000 103:02 419958                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f607d046000-7f607d246000 ---p 00008000 103:02 419958                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f607d246000-7f607d247000 r--p 00008000 103:02 419958                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f607d247000-7f607d248000 rw-p 00009000 103:02 419958                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f607d248000-7f607d272000 r-xp 00000000 103:02 550959                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libjava.so
+7f607d272000-7f607d471000 ---p 0002a000 103:02 550959                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libjava.so
+7f607d471000-7f607d472000 r--p 00029000 103:02 550959                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libjava.so
+7f607d472000-7f607d474000 rw-p 0002a000 103:02 550959                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libjava.so
+7f607d474000-7f607d485000 r-xp 00000000 103:02 550980                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libverify.so
+7f607d485000-7f607d684000 ---p 00011000 103:02 550980                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libverify.so
+7f607d684000-7f607d686000 r--p 00010000 103:02 550980                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libverify.so
+7f607d686000-7f607d687000 rw-p 00012000 103:02 550980                    /home/omnis-dev/development/jdk-11.0.6+10/lib/libverify.so
+7f607d687000-7f607d68e000 r-xp 00000000 103:02 419975                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f607d68e000-7f607d88d000 ---p 00007000 103:02 419975                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f607d88d000-7f607d88e000 r--p 00006000 103:02 419975                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f607d88e000-7f607d88f000 rw-p 00007000 103:02 419975                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f607d88f000-7f607da2c000 r-xp 00000000 103:02 419951                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f607da2c000-7f607dc2b000 ---p 0019d000 103:02 419951                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f607dc2b000-7f607dc2c000 r--p 0019c000 103:02 419951                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f607dc2c000-7f607dc2d000 rw-p 0019d000 103:02 419951                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f607dc2d000-7f607ed71000 r-xp 00000000 103:02 550993                    /home/omnis-dev/development/jdk-11.0.6+10/lib/server/libjvm.so
+7f607ed71000-7f607ef70000 ---p 01144000 103:02 550993                    /home/omnis-dev/development/jdk-11.0.6+10/lib/server/libjvm.so
+7f607ef70000-7f607f02f000 r--p 01143000 103:02 550993                    /home/omnis-dev/development/jdk-11.0.6+10/lib/server/libjvm.so
+7f607f02f000-7f607f069000 rw-p 01202000 103:02 550993                    /home/omnis-dev/development/jdk-11.0.6+10/lib/server/libjvm.so
+7f607f069000-7f607f0bf000 rw-p 00000000 00:00 0 
+7f607f0bf000-7f607f2a6000 r-xp 00000000 103:02 419943                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f607f2a6000-7f607f4a6000 ---p 001e7000 103:02 419943                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f607f4a6000-7f607f4aa000 r--p 001e7000 103:02 419943                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f607f4aa000-7f607f4ac000 rw-p 001eb000 103:02 419943                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f607f4ac000-7f607f4b0000 rw-p 00000000 00:00 0 
+7f607f4b0000-7f607f4b3000 r-xp 00000000 103:02 419949                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f607f4b3000-7f607f6b2000 ---p 00003000 103:02 419949                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f607f6b2000-7f607f6b3000 r--p 00002000 103:02 419949                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f607f6b3000-7f607f6b4000 rw-p 00003000 103:02 419949                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f607f6b4000-7f607f6c4000 r-xp 00000000 103:02 550942                    /home/omnis-dev/development/jdk-11.0.6+10/lib/jli/libjli.so
+7f607f6c4000-7f607f8c3000 ---p 00010000 103:02 550942                    /home/omnis-dev/development/jdk-11.0.6+10/lib/jli/libjli.so
+7f607f8c3000-7f607f8c4000 r--p 0000f000 103:02 550942                    /home/omnis-dev/development/jdk-11.0.6+10/lib/jli/libjli.so
+7f607f8c4000-7f607f8c5000 rw-p 00010000 103:02 550942                    /home/omnis-dev/development/jdk-11.0.6+10/lib/jli/libjli.so
+7f607f8c5000-7f607f8df000 r-xp 00000000 103:02 419971                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f607f8df000-7f607fade000 ---p 0001a000 103:02 419971                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f607fade000-7f607fadf000 r--p 00019000 103:02 419971                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f607fadf000-7f607fae0000 rw-p 0001a000 103:02 419971                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f607fae0000-7f607fae4000 rw-p 00000000 00:00 0 
+7f607fae4000-7f607fb00000 r-xp 00000000 103:02 3149121                   /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f607fb00000-7f607fcff000 ---p 0001c000 103:02 3149121                   /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f607fcff000-7f607fd00000 r--p 0001b000 103:02 3149121                   /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f607fd00000-7f607fd01000 rw-p 0001c000 103:02 3149121                   /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f607fd01000-7f607fd2a000 r-xp 00000000 103:02 419936                    /lib/x86_64-linux-gnu/ld-2.27.so
+7f607fd65000-7f607fe10000 rw-p 00000000 00:00 0 
+7f607fe10000-7f607fe17000 ---p 00000000 00:00 0 
+7f607fe17000-7f607fe1f000 rw-s 00000000 103:02 1491356                   /tmp/hsperfdata_omnis-dev/19550
+7f607fe1f000-7f607fe23000 ---p 00000000 00:00 0 
+7f607fe23000-7f607ff24000 rw-p 00000000 00:00 0 
+7f607ff28000-7f607ff29000 ---p 00000000 00:00 0 
+7f607ff29000-7f607ff2a000 r--p 00000000 00:00 0 
+7f607ff2a000-7f607ff2b000 r--p 00029000 103:02 419936                    /lib/x86_64-linux-gnu/ld-2.27.so
+7f607ff2b000-7f607ff2c000 rw-p 0002a000 103:02 419936                    /lib/x86_64-linux-gnu/ld-2.27.so
+7f607ff2c000-7f607ff2d000 rw-p 00000000 00:00 0 
+7ffe1e57f000-7ffe1e5a1000 rw-p 00000000 00:00 0                          [stack]
+7ffe1e5a3000-7ffe1e5a6000 r--p 00000000 00:00 0                          [vvar]
+7ffe1e5a6000-7ffe1e5a8000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+
+VM Arguments:
+jvm_args: -Xms1025m -Xms4098m -Dorg.apache.jasper.compiler.Parser.STRICT_QUOTE_ESCAPING=false -Dmaven.javadoc.skip=true -Dclassworlds.conf=/home/omnis-dev/development/maven/bin/m2.conf -Dmaven.home=/home/omnis-dev/development/maven -Dlibrary.jansi.path=/home/omnis-dev/development/maven/lib/jansi-native -Dmaven.multiModuleProjectDirectory=/home/omnis-dev/development/workspaces/solution/fenixEdu/bennu/bennu-portal 
+java_command: org.codehaus.plexus.classworlds.launcher.Launcher clean install
+java_class_path (initial): /home/omnis-dev/development/maven/boot/plexus-classworlds-2.6.0.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 10                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 2097152                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 4297064448                                {product} {command line}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 4297064448                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 2097152                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5836300                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122910970                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122910970                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=/home/omnis-dev/development/java
+PATH=/home/omnis-dev/development/scripts:/home/omnis-dev/applications/visualvm/bin:/home/omnis-dev/applications/squirrelsql:/home/omnis-dev/applications/eclipse:/home/omnis-dev/development/java/bin:/home/omnis-dev/development/tomcat/bin:/home/omnis-dev/development/java-mission-control-8/:/home/omnis-dev/development/maven/bin:/home/omnis-dev/development/scripts:/home/omnis-dev/applications/visualvm/bin:/home/omnis-dev/applications/squirrelsql:/home/omnis-dev/applications/eclipse:/home/omnis-dev/development/java/bin:/home/omnis-dev/development/tomcat/bin:/home/omnis-dev/development/java-mission-control-8/:/home/omnis-dev/development/maven/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+USERNAME=omnis-dev
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xe334d0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xe334d0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0xe334d0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0xc061e0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0xc061e0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0xe334d0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR2: [libjvm.so+0xc06080], sa_mask[0]=00000000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGINT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGTERM: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGQUIT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.4 LTS"
+uname:Linux 4.15.0-54-generic #58-Ubuntu SMP Mon Jun 24 10:55:24 UTC 2019 x86_64
+libc:glibc 2.27 NPTL 2.27 
+rlimit: STACK 8192k, CORE infinity, NPROC infinity, NOFILE 1048576, AS infinity, DATA infinity, FSIZE infinity
+load average:0.88 1.50 1.57
+
+/proc/meminfo:
+MemTotal:       16268448 kB
+MemFree:          238920 kB
+MemAvailable:    1957232 kB
+Buffers:          191900 kB
+Cached:          1715052 kB
+SwapCached:        46884 kB
+Active:         12080092 kB
+Inactive:        3151480 kB
+Active(anon):   11192832 kB
+Inactive(anon):  2216464 kB
+Active(file):     887260 kB
+Inactive(file):   935016 kB
+Unevictable:          80 kB
+Mlocked:              80 kB
+SwapTotal:       5417980 kB
+SwapFree:        1242368 kB
+Dirty:               404 kB
+Writeback:             0 kB
+AnonPages:      13279328 kB
+Mapped:           465492 kB
+Shmem:             85048 kB
+Slab:             470084 kB
+SReclaimable:     240236 kB
+SUnreclaim:       229848 kB
+KernelStack:       34052 kB
+PageTables:       119240 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    13552204 kB
+Committed_AS:   30946360 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      652980 kB
+DirectMap2M:    15968256 kB
+DirectMap1G:     1048576 kB
+
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads):
+125843
+
+
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have):
+65530
+
+
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers):
+32768
+
+
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-11
+cpu_memory_nodes: 0
+active_processor_count: 12
+cpu_quota: -1
+cpu_period: 100000
+cpu_shares: -1
+memory_limit_in_bytes: -1
+memory_and_swap_limit_in_bytes: -2
+memory_soft_limit_in_bytes: -1
+memory_usage_in_bytes: 9226543104
+memory_max_usage_in_bytes: 10811691008
+
+Steal ticks since vm start: 0
+Steal ticks percentage since vm start:  0.000
+
+CPU:total 12 (initial active 12) (6 cores per cpu, 2 threads per core) family 6 model 158 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx, fma
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Core(TM) i7-8750H CPU @ 2.20GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp flush_l1d
+
+Memory: 4k page, physical 16268448k(238780k free), swap 5417980k(1242368k free)
+
+vm_info: OpenJDK 64-Bit Server VM (11.0.6+10) for linux-amd64 JRE (11.0.6+10), built on Jan 15 2020 12:10:43 by "jenkins" with gcc 7.3.1 20180303 (Red Hat 7.3.1-5)
+
+END.
