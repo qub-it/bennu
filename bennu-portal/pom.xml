@@ -11,6 +11,10 @@
     <artifactId>bennu-portal</artifactId>
     <name>Bennu Portal</name>
 
+    <properties>
+        <version.org.fenixedu.bennu.renderers>5.4.0-FORK</version.org.fenixedu.bennu.renderers>
+	</properties>
+
     <dependencies>
         <dependency>
             <groupId>org.fenixedu</groupId>
