@@ -115,7 +115,7 @@ public class ScheduleResource extends BennuRestResource {
     }
 
     @DELETE
-    @Path("{oid}")
+    @Path("/{oid}")
     public Response delete(@PathParam("oid") String taskOid) {
         accessControl(Group.managers());
         TaskSchedule schedule = readDomainObject(taskOid);
