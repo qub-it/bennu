@@ -205,22 +205,11 @@ public class UserProfile extends UserProfile_Base {
             return null;
         }
 
-        if (!avatarUrl.startsWith("http")) {
-            avatarUrl = CoreConfiguration.getConfiguration().applicationUrl() + avatarUrl;
-        }
-
-        String protocol = "";
-        if (avatarUrl.startsWith("http://")) {
-            protocol = "http://";
-            avatarUrl = avatarUrl.substring(7);
-        } else if (avatarUrl.startsWith("https://")) {
-            protocol = "https://";
-            avatarUrl = avatarUrl.substring(8);
+        if (avatarUrl.startsWith("http")) {
+            return avatarUrl;
         } else {
-            throw new IllegalStateException("AvatarUrl does not have a defined protocol!");
+            return CoreConfiguration.getConfiguration().applicationUrl() + avatarUrl;
         }
-
-        return protocol + avatarUrl.replaceAll("//+", "/");
 
     }
 
