@@ -2,9 +2,7 @@ package org.fenixedu.bennu.portal.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import com.qubit.terra.portal.domain.menus.MenuVisibility;
 import org.apache.commons.lang.StringUtils;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.domain.groups.PersistentGroup;
@@ -12,6 +10,9 @@ import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.commons.i18n.LocalizedString;
+
+import com.qubit.terra.framework.services.context.ApplicationUser;
+import com.qubit.terra.portal.domain.menus.MenuVisibility;
 
 import pt.ist.fenixframework.Atomic;
 
@@ -234,6 +235,11 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
     }
 
     @Override
+    public String getFullItemPath() {
+        return getFullPath();
+    }
+
+    @Override
     public void setItemPath(String path) {
         setPath(path);
     }
@@ -269,15 +275,16 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
     }
 
     /**
-     * Determines whether this {@link MenuItem} and all its parents are available for the currently logged user.
-     * This method is a shorthand for <code>isAvailable(Authenticate.getUser())</code>.
+     * Determines whether this {@link MenuItem} and all its parents are available for a given user.
+     * This method is a shorthand for <code>isAvailable(User user)</code>.
      * 
      * @return
-     *         Whether the currently logged user can access this item
+     *         Whether the user can access this item
      */
+
     @Override
-    public boolean isAvailableForCurrentUser() {
-        return isAvailable(Authenticate.getUser());
+    public boolean isAvailableForUser(ApplicationUser appUser) {
+        return isAvailable(User.findByUsername(appUser.getUsername()));
     }
 
     @Override
