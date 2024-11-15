@@ -1,6 +1,5 @@
 package org.fenixedu.bennu.portal.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -182,17 +181,11 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
         throw new IllegalStateException("Not a MenuFunctionality");
     }
 
-    public List<MenuItem> getPathFromRoot() {
-        List<MenuItem> result = new ArrayList<MenuItem>();
-        MenuItem current = this;
-        while (current.getParent() != null) {
-            result.add(0, current);
-            current = current.getParent();
-        }
-        return result;
-    }
-
     public abstract MenuItem moveTo(MenuContainer container);
+
+    public List<com.qubit.terra.portal.domain.menus.MenuItem> getPathFromRoot() {
+        return com.qubit.terra.portal.domain.menus.MenuItem.super.getPathFromRoot();
+    }
 
     @Override
     public boolean isItemRestricted() {
@@ -281,7 +274,7 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
      * @return
      *         Whether the user can access this item
      */
-
+    // TODO: Check if appUser is null
     @Override
     public boolean isAvailableForUser(ApplicationUser appUser) {
         return isAvailable(User.findByUsername(appUser.getUsername()));
