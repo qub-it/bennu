@@ -183,6 +183,12 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
 
     public abstract MenuItem moveTo(MenuContainer container);
 
+    // This method needs to be overridden so that this class's
+    // metaholder contains a PATH_FROM_ROOT() method, which is
+    // currently being used by other modules, most notably,
+    // fenixedu-fcul-api.
+    //
+    // 19 October 2024 - Francisco Esteves
     public List<com.qubit.terra.portal.domain.menus.MenuItem> getPathFromRoot() {
         return com.qubit.terra.portal.domain.menus.MenuItem.super.getPathFromRoot();
     }
@@ -274,10 +280,9 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
      * @return
      *         Whether the user can access this item
      */
-    // TODO: Check if appUser is null
     @Override
     public boolean isAvailableForUser(ApplicationUser appUser) {
-        return isAvailable(User.findByUsername(appUser.getUsername()));
+        return appUser != null ? isAvailable(User.findByUsername(appUser.getUsername())) : isAvailable(null);
     }
 
     @Override

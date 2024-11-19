@@ -171,6 +171,10 @@ public class MenuContainer extends MenuContainer_Base implements com.qubit.terra
         return getChildSet().stream().filter((item) -> item.isItemVisible() && item.isAvailable(user)).sorted();
     }
 
+    public Stream<MenuItem> getUserMenuStream(ApplicationUser appUser) {
+        return getChildSet().stream().filter((item) -> item.isItemVisible() && item.isAvailableForUser(appUser)).sorted();
+    }
+
     /**
      * Deletes this container, as well as all its children.
      */
@@ -376,7 +380,7 @@ public class MenuContainer extends MenuContainer_Base implements com.qubit.terra
 
     @Override
     public List<com.qubit.terra.portal.domain.menus.MenuItem> getAvailableChilds(ApplicationUser appUser) {
-        return getUserMenuStream(User.findByUsername(appUser.getUsername())).collect(Collectors.toList());
+        return getUserMenuStream(appUser).collect(Collectors.toList());
     }
 
     @Override

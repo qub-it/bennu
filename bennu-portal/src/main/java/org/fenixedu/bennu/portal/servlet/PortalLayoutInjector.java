@@ -91,8 +91,7 @@ public class PortalLayoutInjector implements Filter {
 
             MenuFunctionality functionality = BennuPortalDispatcher.getSelectedFunctionality(request);
 
-            if (functionality != null && wrapper.hasData() && request.getAttribute(SKIP_LAYOUT_INJECTION) == null
-                    && Authenticate.getUser() != null) {
+            if (functionality != null && wrapper.hasData() && request.getAttribute(SKIP_LAYOUT_INJECTION) == null) {
                 PortalBackend backend = PortalBackendRegistry.getPortalBackend(functionality.getProvider());
                 if (backend.requiresServerSideLayout()) {
                     String body = wrapper.getContent();
