@@ -282,7 +282,7 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
      */
     @Override
     public boolean isAvailableForUser(ApplicationUser appUser) {
-        return appUser != null ? isAvailable(User.findByUsername(appUser.getUsername())) : isAvailable(null);
+        return isAvailable(getBennuUser(appUser));
     }
 
     @Override
@@ -328,6 +328,10 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
     @Override
     public void setItemRestricted(Boolean restricted) {
         setRestricted(restricted);
+    }
+
+    protected User getBennuUser(ApplicationUser appUser) {
+        return appUser != null ? User.findByUsername(appUser.getUsername()) : null;
     }
 
 }
