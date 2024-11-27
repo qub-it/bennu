@@ -97,6 +97,11 @@ public class PortalLayoutInjector implements Filter {
                     String body = wrapper.getContent();
                     try {
                         PortalConfiguration config = PortalConfiguration.getInstance();
+
+                        // These attributes may be removed once the legacy layout
+                        // has been phased out
+                        //
+                        // 27 Nov 2024 - Francisco Esteves
                         Map<String, Object> ctx = new HashMap<>();
                         List<MenuItem> path = functionality.getPathFromRoot();
                         ctx.put("loggedUser", Authenticate.getUser());
