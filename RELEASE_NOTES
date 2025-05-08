@@ -1,3 +1,5 @@
+- Improvement: Introducing exception point for pebble extensions [#qubIT-Fenix-6897]
+
 7.8.2-FORK (07-02-2025)
 - Improvement: Delete ExceptionHandlers and simplify ExceptionHandlerFilter [#qubIT-Omnis-8439]
 

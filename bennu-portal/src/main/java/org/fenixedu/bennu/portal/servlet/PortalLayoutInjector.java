@@ -20,10 +20,14 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mitchellbosecke.pebble.extension.AbstractExtension;
+import com.mitchellbosecke.pebble.extension.Extension;
+import com.qubit.terra.framework.services.ServiceProvider;
 import org.fenixedu.bennu.alerts.Alert;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.core.util.CoreConfiguration;
 import org.fenixedu.bennu.portal.BennuPortalConfiguration;
+import org.fenixedu.bennu.portal.service.PebblePortalExtensionProvider;
 import org.fenixedu.bennu.portal.domain.MenuFunctionality;
 import org.fenixedu.bennu.portal.domain.PortalConfiguration;
 import org.fenixedu.commons.i18n.I18N;
@@ -58,7 +62,11 @@ public class PortalLayoutInjector implements Filter {
 	@Override
 	public void init(final FilterConfig filterConfig) throws ServletException {
 		final ServletContext servletContext = filterConfig.getServletContext();
-		this.engine = new Builder().extension(new PortalExtension(servletContext)).loader(new ClasspathLoader() {
+        List<AbstractExtension> extensions = List.of(new PortalExtension(servletContext));
+        if (ServiceProvider.isServiceAvailable(PebblePortalExtensionProvider.class)) {
+            extensions = ServiceProvider.getService(PebblePortalExtensionProvider.class).provide(servletContext);
+        }
+		this.engine = new Builder().extension(extensions.toArray(new Extension[]{})).loader(new ClasspathLoader() {
 			@Override
 			public Reader getReader(String templateName) throws LoaderException {
 				// Try loading the specified template...
