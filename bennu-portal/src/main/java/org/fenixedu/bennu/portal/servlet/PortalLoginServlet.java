@@ -181,8 +181,8 @@ public class PortalLoginServlet extends HttpServlet {
         try {
             final URL callbackURL = new URL(callback);
             final URL applicationURL = new URL(CoreConfiguration.getConfiguration().applicationUrl());
-            return callbackURL.getHost().equals(applicationURL.getHost())
-                    && callbackURL.getPath().startsWith(applicationURL.getPath());
+            return callbackURL.getHost().equals(applicationURL.getHost()) && callbackURL.getPath()
+                    .startsWith(applicationURL.getPath());
         } catch (MalformedURLException e) {
             //malformed urls are not accepted as callbacks
             return false;
