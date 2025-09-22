@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -33,7 +34,6 @@ import org.slf4j.LoggerFactory;
 
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.PebbleEngine.Builder;
-import com.mitchellbosecke.pebble.error.LoaderException;
 import com.mitchellbosecke.pebble.error.PebbleException;
 import com.mitchellbosecke.pebble.extension.AbstractExtension;
 import com.mitchellbosecke.pebble.extension.Extension;
@@ -68,19 +68,24 @@ public class PortalLayoutInjector implements Filter {
         }
         this.engine = new Builder().extension(extensions.toArray(new Extension[] {})).loader(new ClasspathLoader() {
             @Override
-            public Reader getReader(String templateName) throws LoaderException {
+            public Reader getReader(String templateName) {
                 // Try loading the specified template...
-                InputStream stream = servletContext.getResourceAsStream("/themes/" + templateName + ".html");
+                InputStream stream = getTemplateAsStream(servletContext, "/themes/" + templateName);
                 if (stream != null) {
                     return new InputStreamReader(stream, StandardCharsets.UTF_8);
                 } else {
                     // ... fallback to default if it doesn't exist
                     logger.warn("Could not find template named {}, falling back to default!", templateName);
-                    return new InputStreamReader(servletContext.getResourceAsStream(
-                            "/themes/" + PortalConfiguration.getInstance().getTheme() + "/default.html"), StandardCharsets.UTF_8);
+                    return new InputStreamReader(getTemplateAsStream(servletContext,
+                            "/themes/" + PortalConfiguration.getInstance().getTheme() + "/default"), StandardCharsets.UTF_8);
                 }
             }
         }).cacheActive(!BennuPortalConfiguration.getConfiguration().themeDevelopmentMode()).build();
+    }
+
+    private static InputStream getTemplateAsStream(ServletContext servletContext, String templatePath) {
+        return Optional.ofNullable(servletContext.getResourceAsStream(templatePath + ".html"))
+                .orElse(servletContext.getResourceAsStream(templatePath + ".pebble"));
     }
 
     @Override

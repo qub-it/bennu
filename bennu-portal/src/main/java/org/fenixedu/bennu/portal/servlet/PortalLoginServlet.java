@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -70,7 +71,9 @@ public class PortalLoginServlet extends HttpServlet {
             @Override
             public Reader getReader(String themeName) throws LoaderException {
                 // Try to resolve the page from the theme...
-                InputStream stream = context.getResourceAsStream("/themes/" + themeName + "/login.html");
+                String loginLayoutPath = "/themes/" + themeName + "/login";
+                InputStream stream = Optional.ofNullable(context.getResourceAsStream(loginLayoutPath + ".html"))
+                        .orElse(context.getResourceAsStream(loginLayoutPath + ".pebble"));
                 if (stream != null) {
                     return new InputStreamReader(stream, StandardCharsets.UTF_8);
                 } else {
