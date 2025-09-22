@@ -7,10 +7,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -24,13 +26,14 @@ public class PortalInitializer implements ServletContextListener {
 
     private static final Logger logger = LoggerFactory.getLogger(PortalInitializer.class);
     private static final Set<String> themes = new HashSet<>();
+    protected static final String DEFAULT = "/default";
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         Collection<String> themePaths = sce.getServletContext().getResourcePaths("/themes/");
         if (themePaths != null) {
             for (String themePath : themePaths) {
-                try (InputStream stream = sce.getServletContext().getResourceAsStream(themePath + "/default.html")) {
+                try (InputStream stream = getTemplateAsStream(sce.getServletContext(), themePath + DEFAULT)) {
                     if (stream != null) {
                         themes.add(themePath.substring("/themes/".length(), themePath.length() - 1));
                     }
@@ -50,6 +53,11 @@ public class PortalInitializer implements ServletContextListener {
         sce.getServletContext().setAttribute("portal", new PortalBean(sce.getServletContext()));
 
         MenuContainer.migrateMenus();
+    }
+
+    protected static InputStream getTemplateAsStream(ServletContext servletContext, String templatePath) {
+        return Optional.ofNullable(servletContext.getResourceAsStream(templatePath + ".html"))
+                .orElseGet(() -> servletContext.getResourceAsStream(templatePath + ".pebble"));
     }
 
     private void registerBuiltinPortalBackends() {
