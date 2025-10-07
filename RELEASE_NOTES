@@ -1,3 +1,6 @@
+7.8.4-FORK (07-10-2025)
+- Improvement: Adds support for .pebble templates [qubIT-Fenix-7536]
+
 7.8.3-FORK (08-05-2025)
 - Improvement: Introducing exception point for pebble extensions [#qubIT-Fenix-6897]
 
