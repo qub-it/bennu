@@ -47,6 +47,10 @@
             <groupId>com.mitchellbosecke</groupId>
             <artifactId>pebble</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.qubit.terra</groupId>
+            <artifactId>qub-foundation-core-api</artifactId>
+        </dependency>
     </dependencies>
 
     <repositories>

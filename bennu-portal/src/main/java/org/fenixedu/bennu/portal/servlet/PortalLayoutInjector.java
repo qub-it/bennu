@@ -167,6 +167,7 @@ public class PortalLayoutInjector implements Filter {
             contextExtensions.set(map);
         }
         map.putAll(requestContext);
+        PortalLoginServlet.addContextExtension(requestContext);
     }
 
     @Override
