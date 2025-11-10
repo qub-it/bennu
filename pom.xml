@@ -13,7 +13,7 @@
     <groupId>org.fenixedu</groupId>
     <artifactId>bennu</artifactId>
     <name>Bennu Framework</name>
-    <version>7.8.4-FORK</version>
+    <version>7.8.5-FORK</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -45,7 +45,7 @@
             <dependency>
                 <groupId>com.qubit.solution.fenixedu</groupId>
                 <artifactId>fenixedu-oss-dependency-management</artifactId>
-                <version>348</version>
+                <version>529</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>

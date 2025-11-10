@@ -1,3 +1,6 @@
+7.8.5-FORK (07-10-2025)
+- Improvement: Adapts the login servlet to inject LayoutVariables and the new ThirdPartyLogin wrapper bean to unify the login layout [#qubIT-Fenix-7713]
+
 7.8.4-FORK (07-10-2025)
 - Improvement: Adds support for .pebble templates [qubIT-Fenix-7536]
 

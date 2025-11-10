@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
@@ -29,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.fenixedu.bennu.core.i18n.I18NFilter;
 import org.fenixedu.bennu.core.util.CoreConfiguration;
 import org.fenixedu.bennu.portal.BennuPortalConfiguration;
+import org.fenixedu.bennu.portal.domain.MenuFunctionality;
 import org.fenixedu.bennu.portal.domain.PortalConfiguration;
 import org.fenixedu.bennu.portal.login.LoginProvider;
 import org.fenixedu.commons.i18n.I18N;
@@ -40,6 +43,9 @@ import com.mitchellbosecke.pebble.error.LoaderException;
 import com.mitchellbosecke.pebble.error.PebbleException;
 import com.mitchellbosecke.pebble.loader.ClasspathLoader;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
+import com.qubit.terra.framework.services.logging.Log;
+import com.qubit.terra.framework.services.logging.LogContextStandards;
+import com.qubit.terra.portal.services.ThirdPartyLoginBean;
 
 /**
  * Servlet responsible for exposing the various {@link LoginProvider}s to the end user, as a way for him to login into the
@@ -59,6 +65,7 @@ import com.mitchellbosecke.pebble.template.PebbleTemplate;
 public class PortalLoginServlet extends HttpServlet {
 
     private static final long serialVersionUID = -4298321185506045304L;
+    public static final String RESOURCE_NOT_FOUND_HTML = "<html><body><strong>Could not find: {0} </strong></body></html>";
 
     private static ThreadLocal<Map<String, Object>> contextExtensions = new ThreadLocal<Map<String, Object>>();
 
@@ -69,16 +76,16 @@ public class PortalLoginServlet extends HttpServlet {
         final ServletContext context = config.getServletContext();
         this.engine = new Builder().extension(new PortalExtension(context)).loader(new ClasspathLoader() {
             @Override
-            public Reader getReader(String themeName) throws LoaderException {
+            public Reader getReader(String layout) throws LoaderException {
                 // Try to resolve the page from the theme...
-                String loginLayoutPath = "/themes/" + themeName + "/login";
-                InputStream stream = Optional.ofNullable(context.getResourceAsStream(loginLayoutPath + ".html"))
-                        .orElse(context.getResourceAsStream(loginLayoutPath + ".pebble"));
+                String layoutPath = "/themes/" + layout;
+                InputStream stream = Optional.ofNullable(context.getResourceAsStream(layoutPath + ".html"))
+                        .orElseGet(() -> context.getResourceAsStream(layoutPath + ".pebble"));
                 if (stream != null) {
                     return new InputStreamReader(stream, StandardCharsets.UTF_8);
                 } else {
-                    // ... and fall back if none is provided.
-                    return new InputStreamReader(context.getResourceAsStream("/bennu-portal/login.html"), StandardCharsets.UTF_8);
+                    Log.error(LogContextStandards.OMNIS_PRESENTATION, "Could not find template " + layoutPath);
+                    return new StringReader(MessageFormat.format(RESOURCE_NOT_FOUND_HTML, layoutPath));
                 }
             }
         }).cacheActive(!BennuPortalConfiguration.getConfiguration().themeDevelopmentMode()).build();
@@ -119,7 +126,12 @@ public class PortalLoginServlet extends HttpServlet {
             ctx.put("currentLocale", currentLocale);
             ctx.put("contextPath", req.getContextPath());
             ctx.put("locales", supportedLocales);
-            ctx.put("providers", providers);
+            ctx.put("thirdPartyLogins", providers.stream().map(p -> {
+                ThirdPartyLoginBean bean = new ThirdPartyLoginBean(p.getName(), req.getContextPath() + "/login/" + p.getKey());
+                bean.setStyles(p.getKey());
+                bean.setIcon(p.getIconPath().orElse(null));
+                return bean;
+            }).collect(Collectors.toSet()));
             ctx.put("localLogin", localLogin);
             ctx.put("loginPath", PortalConfiguration.getInstance().getLoginPath());
             ctx.put("recoveryLinkPath", PortalConfiguration.getInstance().getRecoveryLinkPath());
@@ -132,7 +144,10 @@ public class PortalLoginServlet extends HttpServlet {
 
             try {
                 resp.setContentType("text/html;charset=UTF-8");
-                PebbleTemplate template = engine.getTemplate(config.getTheme());
+                MenuFunctionality loginFunctionality = MenuFunctionality.findFunctionality("uiLayer", "portal-login");
+                PebbleTemplate template = engine.getTemplate(
+                        config.getTheme() + "/" + Optional.ofNullable(loginFunctionality).map(MenuFunctionality::resolveLayout)
+                                .orElse(""));
                 template.evaluate(resp.getWriter(), ctx, currentLocale);
             } catch (PebbleException e) {
                 throw new IOException(e);
