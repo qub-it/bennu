@@ -126,6 +126,7 @@ public class PortalLoginServlet extends HttpServlet {
             ctx.put("currentLocale", currentLocale);
             ctx.put("contextPath", req.getContextPath());
             ctx.put("locales", supportedLocales);
+            ctx.put("providers", providers);
             ctx.put("thirdPartyLogins", providers.stream().map(p -> {
                 ThirdPartyLoginBean bean = new ThirdPartyLoginBean(p.getName(), req.getContextPath() + "/login/" + p.getKey());
                 bean.setStyles(p.getKey());

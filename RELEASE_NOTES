@@ -1,3 +1,5 @@
+- Bug fix: Correcting SSO 3rd party providers injection into layout [#qubIT-Fenix-7767]
+
 7.8.5-FORK (07-10-2025)
 - Improvement: Adapts the login servlet to inject LayoutVariables and the new ThirdPartyLogin wrapper bean to unify the login layout [#qubIT-Fenix-7713]
 
