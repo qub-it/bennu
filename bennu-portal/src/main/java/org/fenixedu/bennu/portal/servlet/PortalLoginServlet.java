@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
@@ -66,6 +64,7 @@ public class PortalLoginServlet extends HttpServlet {
 
     private static final long serialVersionUID = -4298321185506045304L;
     public static final String RESOURCE_NOT_FOUND_HTML = "<html><body><strong>Could not find: {0} </strong></body></html>";
+    protected static final String DEFAULT_LOGIN_RESOURCE = "/bennu-portal/login.html";
 
     private static ThreadLocal<Map<String, Object>> contextExtensions = new ThreadLocal<Map<String, Object>>();
 
@@ -84,8 +83,9 @@ public class PortalLoginServlet extends HttpServlet {
                 if (stream != null) {
                     return new InputStreamReader(stream, StandardCharsets.UTF_8);
                 } else {
-                    Log.error(LogContextStandards.OMNIS_PRESENTATION, "Could not find template " + layoutPath);
-                    return new StringReader(MessageFormat.format(RESOURCE_NOT_FOUND_HTML, layoutPath));
+                    Log.error(LogContextStandards.OMNIS_PRESENTATION,
+                            "Could not find login template " + layoutPath + ", redirecting to default login layout");
+                    return new InputStreamReader(context.getResourceAsStream(DEFAULT_LOGIN_RESOURCE), StandardCharsets.UTF_8);
                 }
             }
         }).cacheActive(!BennuPortalConfiguration.getConfiguration().themeDevelopmentMode()).build();
