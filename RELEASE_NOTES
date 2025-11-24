@@ -1,5 +1,8 @@
+7.8.7-FORK (24-11-2025)
 - Improvement: Changes the default application theme during bootstrapping from default to fenixedu-omnis-theme [#qubIT-Fenix-7800]
 - Bug fix: Adds a fail-safe login layout for cases where the application's theme does not have a login layout [#qubIT-Fenix-7798]
+
+7.8.6-FORK (14-11-2025)
 - Bug fix: Correcting SSO 3rd party providers injection into layout [#qubIT-Fenix-7767]
 
 7.8.5-FORK (07-10-2025)
