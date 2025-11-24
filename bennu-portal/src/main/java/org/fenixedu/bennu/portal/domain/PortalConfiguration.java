@@ -23,9 +23,9 @@ import pt.ist.fenixframework.Atomic.TxMode;
 /**
  * A {@link PortalConfiguration} contains the configuration for the installed application, as well as the entry point for the
  * installed functionality tree.
- * 
+ *
  * @author João Carvalho (joao.pedro.carvalho@tecnico.ulisboa.pt)
- * 
+ *
  */
 public class PortalConfiguration extends PortalConfiguration_Base {
 
@@ -38,9 +38,9 @@ public class PortalConfiguration extends PortalConfiguration_Base {
         setApplicationSubTitle(new LocalizedString(I18N.getLocale(), "Application Subtitle"));
         setApplicationCopyright(new LocalizedString(I18N.getLocale(), "Organization Copyright"));
         setHtmlTitle(getApplicationTitle());
-        setTheme("default");
-        try (InputStream stream =
-                PortalConfiguration.class.getClassLoader().getResourceAsStream("META-INF/resources/img/logo_bennu.svg")) {
+        setTheme("fenixedu-omnis-theme");
+        try (InputStream stream = PortalConfiguration.class.getClassLoader()
+                .getResourceAsStream("META-INF/resources/img/logo_bennu.svg")) {
             if (stream == null) {
                 logger.error("Default logo not found in: img/logo_bennu.svg");
             } else {
@@ -50,8 +50,8 @@ public class PortalConfiguration extends PortalConfiguration_Base {
         } catch (IOException e) {
             logger.error("Default logo could not be read from: img/logo_bennu.svg");
         }
-        try (InputStream stream =
-                PortalConfiguration.class.getClassLoader().getResourceAsStream("META-INF/resources/img/favicon_bennu.png")) {
+        try (InputStream stream = PortalConfiguration.class.getClassLoader()
+                .getResourceAsStream("META-INF/resources/img/favicon_bennu.png")) {
             if (stream == null) {
                 logger.error("Default favicon not found in: img/favicon_bennu.png");
             } else {
@@ -80,7 +80,7 @@ public class PortalConfiguration extends PortalConfiguration_Base {
 
     /**
      * Returns the singleton instance of {@link PortalConfiguration} for this application.
-     * 
+     *
      * @return
      *         The one and only instance of {@link PortalConfiguration}
      */
@@ -117,10 +117,10 @@ public class PortalConfiguration extends PortalConfiguration_Base {
 
     /**
      * Returns the checksum of the current application's logo.
-     * 
+     *
      * This value is meant to be used as a mechanism for cache busting, as as such, its correctness is not guarranteed, and it may
      * even be {@code null}.
-     * 
+     *
      * @return
      *         The checksum of the application's logo. May be null
      */
