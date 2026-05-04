@@ -140,7 +140,6 @@
         <module>bennu-toolkit</module>
         <module>bennu-portal</module>
         <module>bennu-cas-client</module>
-        <module>bennu-admin</module>
         <module>bennu-maven-plugin</module>
         <module>bennu-oauth</module>
         <module>bennu-spring</module>
