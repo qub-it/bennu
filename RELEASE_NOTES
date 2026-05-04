@@ -1,3 +1,5 @@
+- Bug fix: Fixes PortalLogoutServlet's URL pattern to also accept SLO URLs [#qubIT-Omnis-10974]
+
 7.8.7-FORK (24-11-2025)
 - Improvement: Changes the default application theme during bootstrapping from default to fenixedu-omnis-theme [#qubIT-Fenix-7800]
 - Bug fix: Adds a fail-safe login layout for cases where the application's theme does not have a login layout [#qubIT-Fenix-7798]
