@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.portal.BennuPortalConfiguration;
-
-import com.google.common.base.Strings;
 
 /**
  * Specialized servlet that logs the current user out.
@@ -24,7 +23,7 @@ import com.google.common.base.Strings;
  * @author João Carvalho (joao.pedro.carvalho@tecnico.ulisboa.pt)
  *
  */
-@WebServlet({ "/logout", "/logout/" })
+@WebServlet({ "/logout", "/logout/*" })
 public class PortalLogoutServlet extends HttpServlet {
 
     @Override
@@ -36,11 +35,14 @@ public class PortalLogoutServlet extends HttpServlet {
         // Logout locally
         Authenticate.logout(req, resp);
 
-        if (Strings.isNullOrEmpty(BennuPortalConfiguration.getConfiguration().logoutURL())) {
-            resp.sendRedirect(req.getContextPath() + "/");
-        } else {
-            resp.sendRedirect(BennuPortalConfiguration.getConfiguration().logoutURL());
+        if (!isSloRequest(request)) {
+            resp.sendRedirect(StringUtils.defaultIfBlank(BennuPortalConfiguration.getConfiguration().logoutURL(),
+                    req.getContextPath() + "/"));
         }
+    }
+
+    private boolean isSloRequest(HttpServletRequest request) {
+        return request.getRequestURL().toString().contains("logout/sso");
     }
 
     @Override
