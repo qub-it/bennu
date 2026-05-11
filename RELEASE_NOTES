@@ -1,3 +1,4 @@
+7.8.8-FORK (11-05-2026)
 - Bug fix: Fixes PortalLogoutServlet's URL pattern to also accept SLO URLs [#qubIT-Omnis-10974]
 
 7.8.7-FORK (24-11-2025)
