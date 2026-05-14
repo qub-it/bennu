@@ -38,6 +38,8 @@ public class PortalLogoutServlet extends HttpServlet {
         if (!isSloRequest(request)) {
             resp.sendRedirect(StringUtils.defaultIfBlank(BennuPortalConfiguration.getConfiguration().logoutURL(),
                     req.getContextPath() + "/"));
+        } else {
+            resp.getWriter().println("LOGGED OUT");
         }
     }
 
