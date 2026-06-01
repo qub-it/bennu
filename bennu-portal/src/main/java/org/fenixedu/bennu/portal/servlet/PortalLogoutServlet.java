@@ -26,6 +26,9 @@ import org.fenixedu.bennu.portal.BennuPortalConfiguration;
 @WebServlet({ "/logout", "/logout/*" })
 public class PortalLogoutServlet extends HttpServlet {
 
+    private static final String SAML_RESPONSE = "SAMLResponse";
+    private static final String SAML_REQUEST = "SAMLRequest";
+
     @Override
     protected void doGet(javax.servlet.http.HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,7 +47,11 @@ public class PortalLogoutServlet extends HttpServlet {
     }
 
     private boolean isSloRequest(HttpServletRequest request) {
-        return request.getRequestURL().toString().contains("logout/sso");
+        return request.getRequestURL().toString().contains("logout/sso") || hasSamlPackage(request);
+    }
+
+    private static boolean hasSamlPackage(final HttpServletRequest request) {
+        return request.getParameter(SAML_RESPONSE) != null || request.getParameter(SAML_REQUEST) != null;
     }
 
     @Override
