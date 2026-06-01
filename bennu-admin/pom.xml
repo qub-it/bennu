@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>bennu-admin</artifactId>
-    <version>PortalLogoutServletTest-7.8.8-FORK</version>
+    <version>PortalLogoutServletTest-7.8.8-202606011132-FORK</version>
     <name>Bennu Admin</name>
 
     <build>
