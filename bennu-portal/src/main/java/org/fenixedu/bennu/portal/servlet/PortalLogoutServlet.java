@@ -14,17 +14,20 @@ import org.fenixedu.bennu.portal.BennuPortalConfiguration;
 
 /**
  * Specialized servlet that logs the current user out.
- * 
+ *
  * If CAS is enabled, the user is redirected to the CAS logout page, after
  * being logged out locally.
- * 
+ *
  * If CAS is not enabled, the user is redirected to the application's root.
- * 
+ *
  * @author João Carvalho (joao.pedro.carvalho@tecnico.ulisboa.pt)
  *
  */
 @WebServlet({ "/logout", "/logout/*" })
 public class PortalLogoutServlet extends HttpServlet {
+
+    private static final String SAML_RESPONSE = "SAMLResponse";
+    private static final String SAML_REQUEST = "SAMLRequest";
 
     @Override
     protected void doGet(javax.servlet.http.HttpServletRequest request, HttpServletResponse response)
@@ -35,14 +38,14 @@ public class PortalLogoutServlet extends HttpServlet {
         // Logout locally
         Authenticate.logout(req, resp);
 
-        if (!isSloRequest(request)) {
+        if (!hasSamlPackage(request)) {
             resp.sendRedirect(StringUtils.defaultIfBlank(BennuPortalConfiguration.getConfiguration().logoutURL(),
                     req.getContextPath() + "/"));
         }
     }
 
-    private boolean isSloRequest(HttpServletRequest request) {
-        return request.getRequestURL().toString().contains("logout/sso");
+    private static boolean hasSamlPackage(final HttpServletRequest request) {
+        return request.getParameter(SAML_RESPONSE) != null || request.getParameter(SAML_REQUEST) != null;
     }
 
     @Override
