@@ -1,5 +1,6 @@
 - Refactor: Removes unused endpoints for screens and bennu-admin module [#qubIT-Fenix-5793]
 - Refactor: Removes bootstrap code [#qubIT-Fenix-8343]
+- Refactor: Removes ProfileResource [#qubIT-Fenix-8358]
 - Bug fix: Temporarily removes PortalLogoutServlet's ability to process SLO URLs [#qubIT-Omnis-11128]
 
 7.8.8-FORK (11-05-2026)
