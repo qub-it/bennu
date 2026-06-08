@@ -23,14 +23,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HandlesTypes;
 
-import org.fenixedu.bennu.core.bootstrap.BootstrapperRegistry;
-import org.fenixedu.bennu.core.bootstrap.annotations.Bootstrapper;
 import org.fenixedu.bennu.core.groups.ArgumentParser;
 import org.fenixedu.bennu.core.groups.CustomGroup;
 import org.fenixedu.bennu.core.groups.CustomGroupRegistry;
 import org.fenixedu.bennu.core.rest.JsonAwareResource;
 
-@HandlesTypes({ DefaultJsonAdapter.class, Bootstrapper.class, GroupOperator.class, GroupArgumentParser.class })
+@HandlesTypes({ DefaultJsonAdapter.class, GroupOperator.class, GroupArgumentParser.class })
 public class BennuCoreAnnotationInitializer implements ServletContainerInitializer {
     @Override
     @SuppressWarnings("unchecked")
@@ -48,9 +46,6 @@ public class BennuCoreAnnotationInitializer implements ServletContainerInitializ
                 DefaultJsonAdapter defaultJsonAdapter = type.getAnnotation(DefaultJsonAdapter.class);
                 if (defaultJsonAdapter != null) {
                     JsonAwareResource.setDefault(defaultJsonAdapter.value(), type);
-                }
-                if (type.isAnnotationPresent(Bootstrapper.class)) {
-                    BootstrapperRegistry.register(type);
                 }
             }
         }
