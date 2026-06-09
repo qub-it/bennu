@@ -1,3 +1,4 @@
+7.8.9-FORK (09-06-2026)
 - Refactor: Removes unused endpoints for screens and bennu-admin module [#qubIT-Fenix-5793]
 - Refactor: Removes bootstrap code [#qubIT-Fenix-8343]
 - Refactor: Removes ProfileResource [#qubIT-Fenix-8358]
