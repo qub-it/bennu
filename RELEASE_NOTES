@@ -1,3 +1,4 @@
+7.8.10-FORK (29-06-2026)
 - Bug fix: Makes PortalLogoutServlet not redirect when receiving a SAML logout request/response [#qubIT-Omnis-11076]
 
 7.8.9-FORK (09-06-2026)
