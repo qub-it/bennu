@@ -23,7 +23,7 @@ import org.fenixedu.bennu.portal.BennuPortalConfiguration;
  * @author João Carvalho (joao.pedro.carvalho@tecnico.ulisboa.pt)
  *
  */
-@WebServlet({ "/logout", "/logout/" })
+@WebServlet({ "/logout", "/logout/*" })
 public class PortalLogoutServlet extends HttpServlet {
 
     private static final String SAML_RESPONSE = "SAMLResponse";
