@@ -8,11 +8,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.fenixedu.commons.StringNormalizer;
 
-import pt.ist.fenixframework.FenixFramework;
-
 import com.google.common.collect.Sets;
+
+import pt.ist.fenixframework.FenixFramework;
 
 class NameIndex extends NameIndex_Base {
     private static final Map<String, NameIndex> map = new ConcurrentHashMap<>();
@@ -35,23 +36,25 @@ class NameIndex extends NameIndex_Base {
 
     static void updateNameIndex(UserProfile profile) {
         profile.getNameIndexSet().clear();
-        Set<String> terms = new LinkedHashSet<>();
-
-        String fullName = StringNormalizer.normalizeAndRemoveAccents(profile.getFullName().toLowerCase().trim());
-        if (!fullName.isEmpty()) {
-            Collections.addAll(terms, fullName.split("\\s+"));
-        }
-
-        String displayName = profile.getDisplayName();
-        if (displayName != null) {
-            String normalized = StringNormalizer.normalizeAndRemoveAccents(displayName.toLowerCase().trim());
-            if (!normalized.isEmpty()) {
-                Collections.addAll(terms, normalized.split("\\s+"));
-            }
-        }
-
+        Set<String> terms = collectTerms(profile);
         for (String term : terms) {
             profile.getNameIndexSet().add(create(term));
+        }
+    }
+
+    private static Set<String> collectTerms(UserProfile profile) {
+        Set<String> terms = new LinkedHashSet<>();
+        collectTerms(profile.getFullName(), terms);
+        collectTerms(profile.getDisplayName(), terms);
+        return terms;
+    }
+
+    private static void collectTerms(final String name, final Set<String> terms) {
+        if (StringUtils.isNotEmpty(name)) {
+            String fullName = StringNormalizer.normalizeAndRemoveAccents(name.toLowerCase().trim());
+            if (!fullName.isEmpty()) {
+                Collections.addAll(terms, fullName.split("\\s+"));
+            }
         }
     }
 
