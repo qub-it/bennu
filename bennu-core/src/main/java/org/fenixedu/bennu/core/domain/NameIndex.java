@@ -1,6 +1,7 @@
 package org.fenixedu.bennu.core.domain;
 
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -33,9 +34,23 @@ class NameIndex extends NameIndex_Base {
     }
 
     static void updateNameIndex(UserProfile profile) {
-        String normalized = StringNormalizer.normalizeAndRemoveAccents(profile.getFullName().toLowerCase().trim());
         profile.getNameIndexSet().clear();
-        for (String term : normalized.split("\\s+")) {
+        Set<String> terms = new LinkedHashSet<>();
+
+        String fullName = StringNormalizer.normalizeAndRemoveAccents(profile.getFullName().toLowerCase().trim());
+        if (!fullName.isEmpty()) {
+            Collections.addAll(terms, fullName.split("\\s+"));
+        }
+
+        String displayName = profile.getDisplayName();
+        if (displayName != null) {
+            String normalized = StringNormalizer.normalizeAndRemoveAccents(displayName.toLowerCase().trim());
+            if (!normalized.isEmpty()) {
+                Collections.addAll(terms, normalized.split("\\s+"));
+            }
+        }
+
+        for (String term : terms) {
             profile.getNameIndexSet().add(create(term));
         }
     }
