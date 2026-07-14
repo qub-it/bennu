@@ -56,4 +56,14 @@ public class NameIndexTest {
         assertTrue(NameIndex.search("silva", 10).collect(Collectors.toList()).contains(p1));
         assertTrue(NameIndex.search("santos", 10).collect(Collectors.toList()).contains(p2));
     }
+
+    @Test
+    public void testSearchByDisplayNameUniqueTerm() {
+        UserProfile profile = createProfile("Maria", "Santos", "Maria Santos");
+        profile.setDisplayName("Maria Santos Prof");
+        NameIndex.updateNameIndex(profile);
+        assertTrue(NameIndex.search("prof", 10).collect(Collectors.toList()).contains(profile));
+        assertTrue(NameIndex.search("maria", 10).collect(Collectors.toList()).contains(profile));
+        assertTrue(NameIndex.search("santos", 10).collect(Collectors.toList()).contains(profile));
+    }
 }
