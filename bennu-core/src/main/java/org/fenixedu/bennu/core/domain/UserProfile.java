@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
+import com.qubit.terra.framework.services.ServiceProvider;
 
 import pt.ist.fenixframework.Atomic;
 
@@ -261,8 +262,15 @@ public class UserProfile extends UserProfile_Base {
         return NameIndex.search(name, maxHits);
     }
 
-    private static void validateNames(final String displayname, final String fullname) {
+    private void validateNames(final String displayname, final String fullname) {
         if (displayname == null) {
+            return;
+        }
+        DisplayNameValidator validator = ServiceProvider.getService(DisplayNameValidator.class);
+        if (validator != null) {
+            if (!validator.validate(displayname, fullname, this)) {
+                throw BennuCoreDomainException.displayNameNotContainedInFullName(displayname, fullname);
+            }
             return;
         }
         if (fullname == null) {
