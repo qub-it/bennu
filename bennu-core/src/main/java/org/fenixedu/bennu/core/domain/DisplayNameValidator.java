@@ -1,5 +1,7 @@
 package org.fenixedu.bennu.core.domain;
 
+import com.qubit.terra.framework.services.context.ApplicationUser;
+
 public interface DisplayNameValidator {
-    boolean validate(String displayName, String fullName, UserProfile userProfile);
+    void validate(String displayName, String fullName, ApplicationUser applicationUser);
 }
