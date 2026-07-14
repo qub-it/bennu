@@ -4,7 +4,6 @@ import java.util.Locale;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang.StringUtils;
-import org.fenixedu.bennu.core.domain.exceptions.BennuCoreDomainException;
 import org.fenixedu.bennu.core.signals.Signal;
 import org.fenixedu.bennu.core.util.CoreConfiguration;
 import org.slf4j.Logger;
@@ -261,12 +260,6 @@ public class UserProfile extends UserProfile_Base {
     }
 
     private void validateNames(final String displayname, final String fullname) {
-        if (displayname == null) {
-            return;
-        }
-        if (fullname == null) {
-            throw BennuCoreDomainException.displayNameNotContainedInFullName(displayname, fullname);
-        }
         if (ServiceProvider.isServiceAvailable(DisplayNameValidator.class)) {
             ServiceProvider.getService(DisplayNameValidator.class).validate(displayname, fullname,
                     getUser() != null ? ServiceProvider.getService(ApplicationUserProvider.class)
