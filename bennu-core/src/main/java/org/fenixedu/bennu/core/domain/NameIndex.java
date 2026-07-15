@@ -51,9 +51,9 @@ class NameIndex extends NameIndex_Base {
 
     private static void collectTerms(final String name, final Set<String> terms) {
         if (StringUtils.isNotEmpty(name)) {
-            String fullName = StringNormalizer.normalizeAndRemoveAccents(name.toLowerCase().trim());
-            if (!fullName.isEmpty()) {
-                Collections.addAll(terms, fullName.split("\\s+"));
+            String normalizedName = StringNormalizer.normalizeAndRemoveAccents(name.toLowerCase().trim());
+            if (!normalizedName.isEmpty()) {
+                Collections.addAll(terms, normalizedName.split("\\s+"));
             }
         }
     }

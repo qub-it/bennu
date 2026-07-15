@@ -49,7 +49,7 @@ public class NameIndexTest {
 
     @Test
     public void testMultipleProfilesSearchable() {
-        UserProfile p1 = createProfile("Joao", "Silva", "Joao Silva");
+        UserProfile p1 = createProfile("João", "Silva", "João Silva");
         UserProfile p2 = createProfile("Maria", "Santos", "Maria Santos");
         assertTrue(NameIndex.search("joao", 10).collect(Collectors.toList()).contains(p1));
         assertTrue(NameIndex.search("maria", 10).collect(Collectors.toList()).contains(p2));
