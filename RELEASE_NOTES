@@ -1,4 +1,5 @@
-New feature: Adds pluggable DisplayNameValidator interface for dynamic display name validation rules via ServiceProvider [#qubIT-Fenix-8992]
+- New feature: Adds pluggable DisplayNameValidator interface for dynamic display name validation rules via ServiceProvider [#qubIT-Fenix-8992]
+- Improvement: Index display name terms in NameIndex for person search [#qubIT-Fenix-8993]
 
 7.8.11-FORK (01-07-2026)
 - Bug fix: Ensuring that PortalLogoutServlet also deals with /logout/sso [#qubIT-Fenix-8929]
