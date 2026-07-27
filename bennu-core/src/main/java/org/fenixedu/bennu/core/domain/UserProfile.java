@@ -1,21 +1,19 @@
 package org.fenixedu.bennu.core.domain;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang.StringUtils;
-import org.fenixedu.bennu.core.domain.exceptions.BennuCoreDomainException;
 import org.fenixedu.bennu.core.signals.Signal;
 import org.fenixedu.bennu.core.util.CoreConfiguration;
-import org.fenixedu.commons.StringNormalizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
+import com.qubit.terra.framework.services.ServiceProvider;
+import com.qubit.terra.framework.services.context.ApplicationUserProvider;
 
 import pt.ist.fenixframework.Atomic;
 
@@ -261,19 +259,11 @@ public class UserProfile extends UserProfile_Base {
         return NameIndex.search(name, maxHits);
     }
 
-    private static void validateNames(final String displayname, final String fullname) {
-        if (displayname == null) {
-            return;
-        }
-        if (fullname == null) {
-            throw BennuCoreDomainException.displayNameNotContainedInFullName(displayname, fullname);
-        }
-        List<String> fullnameParts =
-                Arrays.asList(StringNormalizer.normalizeAndRemoveAccents(fullname).toLowerCase().trim().split("\\s+|-"));
-        List<String> displaynameParts =
-                Arrays.asList(StringNormalizer.normalizeAndRemoveAccents(displayname).toLowerCase().trim().split("\\s+|-"));
-        if (!fullnameParts.containsAll(displaynameParts)) {
-            throw BennuCoreDomainException.displayNameNotContainedInFullName(displayname, fullname);
+    private void validateNames(final String displayname, final String fullname) {
+        if (ServiceProvider.isServiceAvailable(DisplayNameValidator.class)) {
+            ServiceProvider.getService(DisplayNameValidator.class).validate(displayname, fullname,
+                    getUser() != null ? ServiceProvider.getService(ApplicationUserProvider.class)
+                            .provide(getUser().getUsername()) : null);
         }
     }
 
