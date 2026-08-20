@@ -1,3 +1,4 @@
+- Improvement: User menu now takes into account visibility as well [#qubIT-Fenix-9245]
 - Bug fix: Firing signal when backend provider changes on menu item to invalidate cache [#qubIT-Omnis-11418]
 
 7.8.12-FORK (27-07-2026)
