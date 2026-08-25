@@ -9,6 +9,7 @@ import org.fenixedu.bennu.core.domain.groups.PersistentGroup;
 import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.bennu.core.security.Authenticate;
+import org.fenixedu.bennu.core.signals.Signal;
 import org.fenixedu.commons.i18n.LocalizedString;
 
 import com.google.common.base.Supplier;
@@ -307,6 +308,12 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
     @Override
     public void setItemProviderImplementation(String providerImplementation) {
         this.setProviderImplementation(providerImplementation);
+    }
+
+    @Override
+    public void setProviderImplementation(final String providerImplementation) {
+        Signal.emit("MENU_ITEM_CHANGE_PROVIDER_EVENT", this);
+        super.setProviderImplementation(providerImplementation);
     }
 
     @Override

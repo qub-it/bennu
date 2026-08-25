@@ -1,3 +1,5 @@
+- Bug fix: Firing signal when backend provider changes on menu item to invalidate cache [#qubIT-Omnis-11418]
+
 7.8.12-FORK (27-07-2026)
 - New feature: Adds pluggable DisplayNameValidator interface for dynamic display name validation rules via ServiceProvider [#qubIT-Fenix-8992]
 - Improvement: Index display name terms in NameIndex for person search [#qubIT-Fenix-8993]
