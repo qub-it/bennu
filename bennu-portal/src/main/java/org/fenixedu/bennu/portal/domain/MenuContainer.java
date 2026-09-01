@@ -168,7 +168,9 @@ public class MenuContainer extends MenuContainer_Base implements com.qubit.terra
     }
 
     public Stream<MenuItem> getUserMenuStream(User user) {
-        return getChildSet().stream().filter((item) -> item.isItemVisible() && item.isAvailable(user)).sorted();
+        return getChildSet().stream()
+                .filter((item) -> item.isItemVisible() && item.isAvailable(user) && (item.isMenuFunctionality()
+                        || ((MenuContainer) item).getUserMenuStream(user).findAny().isPresent())).sorted();
     }
 
     /**
