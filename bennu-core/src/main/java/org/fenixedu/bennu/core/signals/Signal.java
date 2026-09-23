@@ -27,8 +27,8 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-import javax.transaction.Status;
-import javax.transaction.SystemException;
+import jakarta.transaction.Status;
+import jakarta.transaction.SystemException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

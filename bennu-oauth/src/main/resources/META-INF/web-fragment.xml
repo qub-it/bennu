@@ -19,6 +19,6 @@
     along with Bennu OAuth.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<web-fragment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:webfragment="http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd" version="3.0">
+<web-fragment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:webfragment="https://jakarta.ee/xml/ns/jakartaee/web-fragment_6_0.xsd" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-fragment_6_0.xsd" version="6.0">
   <name>bennu-oauth</name>
 </web-fragment>

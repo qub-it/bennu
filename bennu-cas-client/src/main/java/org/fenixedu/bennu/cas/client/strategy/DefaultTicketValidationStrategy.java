@@ -26,8 +26,8 @@
  */
 package org.fenixedu.bennu.cas.client.strategy;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.fenixedu.bennu.cas.client.CASClientConfiguration;
 import org.fenixedu.bennu.core.domain.User;

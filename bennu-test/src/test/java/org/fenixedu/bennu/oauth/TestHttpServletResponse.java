@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 // Instead of using a mock for the response it seemed more correct to use an actual
 // response that can be modified depending on the request. If a mock was used
@@ -39,11 +39,6 @@ public class TestHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void setStatus(int i, String s) {
-
-    }
-
-    @Override
     public int getStatus() {
         return status;
     }
@@ -61,6 +56,10 @@ public class TestHttpServletResponse implements HttpServletResponse {
     @Override
     public Collection<String> getHeaderNames() {
         return List.of();
+    }
+
+    @Override
+    public void setContentLengthLong(long len) {
     }
 
     @Override
@@ -159,16 +158,6 @@ public class TestHttpServletResponse implements HttpServletResponse {
 
     @Override
     public String encodeRedirectURL(String s) {
-        return "";
-    }
-
-    @Override
-    public String encodeUrl(String s) {
-        return "";
-    }
-
-    @Override
-    public String encodeRedirectUrl(String s) {
         return "";
     }
 

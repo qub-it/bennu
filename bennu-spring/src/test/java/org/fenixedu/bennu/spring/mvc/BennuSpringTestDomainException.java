@@ -18,7 +18,7 @@
  */
 package org.fenixedu.bennu.spring.mvc;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.fenixedu.bennu.core.domain.exceptions.DomainException;
 

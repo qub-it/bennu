@@ -1,7 +1,7 @@
 package org.fenixedu.bennu.portal.client;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.fenixedu.bennu.portal.servlet.PortalBackend;
 import org.fenixedu.bennu.portal.servlet.SemanticURLHandler;

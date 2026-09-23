@@ -58,6 +58,10 @@ public class PortalHandlerMapping extends RequestMappingHandlerMapping {
         registerFunctionalities(getApplicationContext().getBeansWithAnnotation(SpringFunctionality.class).values());
         registerLonelyControllers(getApplicationContext().getBeansWithAnnotation(BennuSpringController.class).values());
         super.initHandlerMethods();
+        getHandlerMethods().forEach((info, hm) -> {
+            if (hm.toString().contains("csrf")) {
+            }
+        });
     }
 
     private void registerLonelyControllers(Collection<Object> values) {
@@ -113,6 +117,18 @@ public class PortalHandlerMapping extends RequestMappingHandlerMapping {
         }
         String path = mapping.value()[0];
         return path.startsWith("/") ? path.substring(1) : path;
+    }
+
+    // Spring 6.2: o registo pode guardar HandlerMethod base; re-embrulhar no lookup
+    // para preservar o contrato PortalHandlerMethod usado pelo PortalHandlerInterceptor.
+    @Override
+    protected HandlerMethod lookupHandlerMethod(String lookupPath, jakarta.servlet.http.HttpServletRequest request) throws Exception {
+        HandlerMethod handlerMethod = super.lookupHandlerMethod(lookupPath, request);
+        if (handlerMethod != null && !(handlerMethod instanceof PortalHandlerMethod)) {
+            Functionality functionality = functionalities.get(handlerMethod.getBeanType());
+            return new PortalHandlerMethod(handlerMethod, functionality);
+        }
+        return handlerMethod;
     }
 
     @Override

@@ -3,8 +3,8 @@ package org.fenixedu.bennu.spring.security;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Repository responsible for the handling of {@link CSRFToken}s.

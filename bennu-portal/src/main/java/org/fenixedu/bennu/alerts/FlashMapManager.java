@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -229,7 +229,7 @@ class FlashMapManager {
     }
 
     private String getOriginatingRequestUri(HttpServletRequest request) {
-        String uri = (String) request.getAttribute("javax.servlet.forward.request_uri");
+        String uri = (String) request.getAttribute("jakarta.servlet.forward.request_uri");
         if (uri == null) {
             uri = request.getRequestURI();
         }
@@ -270,7 +270,7 @@ class FlashMapManager {
     }
 
     private String getRequestUri(HttpServletRequest request) {
-        String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
+        String uri = (String) request.getAttribute("jakarta.servlet.include.request_uri");
         if (uri == null) {
             uri = request.getRequestURI();
         }

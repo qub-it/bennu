@@ -3,10 +3,10 @@ package org.fenixedu.bennu.core.rest;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.ext.ParamConverter;
-import javax.ws.rs.ext.ParamConverterProvider;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.ext.ParamConverter;
+import jakarta.ws.rs.ext.ParamConverterProvider;
+import jakarta.ws.rs.ext.Provider;
 
 import pt.ist.fenixframework.DomainObject;
 import pt.ist.fenixframework.FenixFramework;
@@ -22,8 +22,8 @@ import com.google.common.base.Strings;
  * If the parameter value is null returns null.
  * 
  * If the parameter type is not a subclass of {@link pt.ist.fenixframework.DomainObject} or
- * {@link pt.ist.fenixframework.DomainObject} is not valid a {@link javax.ws.rs.core.Response} is returned with
- * {@link javax.ws.rs.core.Response.Status#NOT_FOUND}.
+ * {@link pt.ist.fenixframework.DomainObject} is not valid a {@link jakarta.ws.rs.core.Response} is returned with
+ * {@link jakarta.ws.rs.core.Response.Status#NOT_FOUND}.
  * 
  * @author Sérgio Silva (sergio.silva@tecnico.ulisboa.pt)
  *

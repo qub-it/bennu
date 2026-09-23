@@ -16,7 +16,7 @@
  */
 package org.fenixedu.bennu.core.domain.exceptions;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 /**
  * Group access authorization exception.

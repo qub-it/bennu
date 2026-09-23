@@ -1,6 +1,6 @@
 package org.fenixedu.bennu.core.json;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.fenixedu.bennu.core.domain.exceptions.BennuCoreDomainException;
 

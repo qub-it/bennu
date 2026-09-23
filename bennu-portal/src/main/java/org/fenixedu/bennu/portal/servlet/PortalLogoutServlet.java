@@ -2,11 +2,11 @@ package org.fenixedu.bennu.portal.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -30,7 +30,7 @@ public class PortalLogoutServlet extends HttpServlet {
     private static final String SAML_REQUEST = "SAMLRequest";
 
     @Override
-    protected void doGet(javax.servlet.http.HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(jakarta.servlet.http.HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;

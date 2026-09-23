@@ -2,7 +2,7 @@ package org.fenixedu.bennu.portal.service;
 
 import com.mitchellbosecke.pebble.extension.AbstractExtension;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.util.List;
 
 public interface PebblePortalExtensionProvider {

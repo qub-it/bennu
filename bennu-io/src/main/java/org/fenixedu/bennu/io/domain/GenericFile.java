@@ -303,7 +303,7 @@ public abstract class GenericFile extends GenericFile_Base {
     }
 
     /**
-     * Guessing file content type with {@link javax.activation.MimetypesFileTypeMap} is not enough.
+     * Guessing file content type with {@link jakarta.activation.MimetypesFileTypeMap} is not enough.
      *
      * @param filename
      *            The name of the file to evaluate
