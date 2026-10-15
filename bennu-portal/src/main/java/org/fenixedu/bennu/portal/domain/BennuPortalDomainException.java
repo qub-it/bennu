@@ -18,4 +18,12 @@ public class BennuPortalDomainException extends DomainException {
         return new BennuPortalDomainException("error.child.with.path.already.exists", path);
     }
 
+    public static BennuPortalDomainException menuUrlParameterWithNoName() {
+        return new BennuPortalDomainException("error.url.parameter.with.no.name");
+    }
+
+    public static BennuPortalDomainException menuUrlParameterWithNameAlreadyExists(String name) {
+        return new BennuPortalDomainException("error.url.parameter.with.name.already.exists", name);
+    }
+
 }
