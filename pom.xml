@@ -144,6 +144,5 @@
         <module>bennu-oauth</module>
         <module>bennu-spring</module>
         <module>bennu-test</module>
-        <module>default-theme</module>
     </modules>
 </project>
