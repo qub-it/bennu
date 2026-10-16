@@ -24,18 +24,18 @@ import pt.ist.fenixframework.Atomic;
 
 /**
  * Base class for items that are presented in an application's menu.
- * 
+ *
  * {@code MenuItem}s are either a {@link MenuContainer}, aggregating other items or a {@link MenuFunctionality}, representing a
  * concrete entry in the menu.
- * 
+ *
  * Note that a {@link MenuItem} is immutable, meaning that once it is installed in the menu, it is not possible to modify any of
  * its properties. If you desire to do so, {@code delete} the item and create a new one with the new values.
- * 
+ *
  * {@code MenuItem}s are {@link Comparable} according to their order in the menu.
- * 
+ *
  * @see MenuContainer
  * @see MenuFunctionality
- * 
+ *
  */
 public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.portal.domain.menus.MenuItem {
 
@@ -114,7 +114,7 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
 
     /**
      * Determines whether this {@link MenuItem} and all its parents are available for the given {@link User}.
-     * 
+     *
      * @param user
      *            The user to verify
      * @return
@@ -286,7 +286,7 @@ public abstract class MenuItem extends MenuItem_Base implements com.qubit.terra.
     /**
      * Determines whether this {@link MenuItem} and all its parents are available for a given user.
      * This method is a shorthand for <code>isAvailable(User user)</code>.
-     * 
+     *
      * @return
      *         Whether the user can access this item
      */

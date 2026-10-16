@@ -57,6 +57,11 @@ public class MenuFunctionality extends MenuItem {
     public String documentationUrl;
 }
 
+public class MenuItemUrlParameter {
+    public String name (REQUIRED);
+    public boolean required;
+}
+
 relation ApplicationMenu {
     protected PortalConfiguration playsRole configuration {
         multiplicity 0..1;
@@ -82,6 +87,15 @@ relation MenuItemComposition {
 	protected MenuItem playsRole child {
 		multiplicity *;
 	}
+}
+
+relation MenuFunctionalityUrlParameters {
+    protected MenuFunctionality playsRole menuFunctionality {
+        multiplicity 1..1;
+    }
+    protected MenuItemUrlParameter playsRole parameter {
+        multiplicity *;
+    }
 }
 
 relation MenuItemGroup {
