@@ -144,7 +144,6 @@
         <module>bennu-maven-plugin</module>
         <module>bennu-oauth</module>
         <module>bennu-test</module>
-        <module>default-theme</module>
     </modules>
 
     <build>
