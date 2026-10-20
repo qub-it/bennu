@@ -30,25 +30,26 @@ public class PortalHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        PortalHandlerMethod handlerMethod = (PortalHandlerMethod) handler;
-        if (handlerMethod.getFunctionality() == null) {
-            // The requested controller does not map to a functionality
+        if (handler instanceof PortalHandlerMethod handlerMethod) {
+            if (handlerMethod.getFunctionality() == null) {
+                // The requested controller does not map to a functionality
+                return true;
+            }
+            // If no functionality is selected, look it up from the current request
+            if (BennuPortalDispatcher.getSelectedFunctionality(request) == null) {
+                MenuFunctionality functionality = MenuFunctionality.findFunctionality(SpringPortalBackend.BACKEND_KEY,
+                        handlerMethod.getFunctionality().getKey());
+                if (functionality == null) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "The selected functionality is not configured");
+                    return false;
+                }
+                if (!functionality.isAvailableForCurrentUser()) {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                    return false;
+                }
+                BennuPortalDispatcher.selectFunctionality(request, functionality);
+            }
             return true;
-        }
-        // If no functionality is selected, look it up from the current request
-        if (BennuPortalDispatcher.getSelectedFunctionality(request) == null) {
-            MenuFunctionality functionality =
-                    MenuFunctionality.findFunctionality(SpringPortalBackend.BACKEND_KEY, handlerMethod.getFunctionality()
-                            .getKey());
-            if (functionality == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "The selected functionality is not configured");
-                return false;
-            }
-            if (!functionality.isAvailableForCurrentUser()) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
-                return false;
-            }
-            BennuPortalDispatcher.selectFunctionality(request, functionality);
         }
         return true;
     }
