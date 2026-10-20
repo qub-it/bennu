@@ -8,7 +8,7 @@ import java.util.Locale.Builder;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.servlet.MultipartConfigElement;
+import jakarta.servlet.MultipartConfigElement;
 
 import org.fenixedu.commons.configuration.ConfigurationInvocationHandler;
 import org.fenixedu.commons.configuration.ConfigurationManager;

@@ -18,7 +18,7 @@
  */
 package org.fenixedu.bennu.spring;
 
-import javax.servlet.ServletRegistration.Dynamic;
+import jakarta.servlet.ServletRegistration.Dynamic;
 
 import org.fenixedu.bennu.core.util.CoreConfiguration;
 import org.fenixedu.bennu.portal.servlet.PortalBackendRegistry;

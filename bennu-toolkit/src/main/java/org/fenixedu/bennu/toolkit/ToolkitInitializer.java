@@ -2,10 +2,10 @@ package org.fenixedu.bennu.toolkit;
 
 import java.util.Set;
 
-import javax.servlet.ServletContainerInitializer;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.HandlesTypes;
+import jakarta.servlet.ServletContainerInitializer;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.HandlesTypes;
 
 import org.fenixedu.bennu.toolkit.components.Component;
 import org.fenixedu.bennu.toolkit.components.ToolkitComponent;

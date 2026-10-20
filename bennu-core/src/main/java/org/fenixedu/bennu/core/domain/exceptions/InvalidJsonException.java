@@ -2,9 +2,9 @@ package org.fenixedu.bennu.core.domain.exceptions;
 
 import java.util.Arrays;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 import com.google.gson.JsonElement;
 

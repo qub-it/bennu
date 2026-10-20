@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
@@ -20,11 +20,13 @@ import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 import com.google.common.io.BaseEncoding;
 import com.google.common.io.ByteStreams;
-import com.mitchellbosecke.pebble.extension.AbstractExtension;
-import com.mitchellbosecke.pebble.extension.Filter;
-import com.mitchellbosecke.pebble.extension.Function;
-import com.mitchellbosecke.pebble.extension.Test;
-import com.mitchellbosecke.pebble.tokenParser.TokenParser;
+import io.pebbletemplates.pebble.extension.AbstractExtension;
+import io.pebbletemplates.pebble.extension.Filter;
+import io.pebbletemplates.pebble.extension.Function;
+import io.pebbletemplates.pebble.extension.Test;
+import io.pebbletemplates.pebble.template.EvaluationContext;
+import io.pebbletemplates.pebble.template.PebbleTemplate;
+import io.pebbletemplates.pebble.tokenParser.TokenParser;
 
 public class PortalExtension extends AbstractExtension {
 
@@ -49,7 +51,8 @@ public class PortalExtension extends AbstractExtension {
         }
 
         @Override
-        public Object apply(Object input, Map<String, Object> args) {
+        public Object apply(Object input, Map<String, Object> args, PebbleTemplate self, EvaluationContext context,
+                int lineNumber) {
             if (input instanceof byte[]) {
                 byte[] bytes = (byte[]) input;
                 return BaseEncoding.base64().encode(bytes);
@@ -85,7 +88,7 @@ public class PortalExtension extends AbstractExtension {
         }
 
         @Override
-        public Object execute(Map<String, Object> args) {
+        public Object execute(Map<String, Object> args, PebbleTemplate self, EvaluationContext context, int lineNumber) {
             String bundle = (String) args.get("bundle");
             String key = args.get("key").toString();
 
@@ -101,7 +104,7 @@ public class PortalExtension extends AbstractExtension {
         }
 
         @Override
-        public Object execute(Map<String, Object> args) {
+        public Object execute(Map<String, Object> args, PebbleTemplate self, EvaluationContext context, int lineNumber) {
             throw new ArrayIndexOutOfBoundsException();
         }
 
@@ -117,7 +120,7 @@ public class PortalExtension extends AbstractExtension {
         }
 
         @Override
-        public Object execute(Map<String, Object> args) {
+        public Object execute(Map<String, Object> args, PebbleTemplate self, EvaluationContext context, int lineNumber) {
             String path = (String) args.get("path");
             return pathMapping.computeIfAbsent(path, this::computePath);
         }
@@ -146,7 +149,8 @@ public class PortalExtension extends AbstractExtension {
         }
 
         @Override
-        public boolean apply(Object input, Map<String, Object> args) {
+        public boolean apply(Object input, Map<String, Object> args, PebbleTemplate self, EvaluationContext context,
+                int lineNumber) {
             Collection<?> collection = (Collection<?>) args.get("collection");
             return collection.contains(input);
         }

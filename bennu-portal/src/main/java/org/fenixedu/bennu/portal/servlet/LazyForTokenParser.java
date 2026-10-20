@@ -6,21 +6,20 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import com.mitchellbosecke.pebble.error.ParserException;
-import com.mitchellbosecke.pebble.error.PebbleException;
-import com.mitchellbosecke.pebble.extension.NodeVisitor;
-import com.mitchellbosecke.pebble.lexer.Token;
-import com.mitchellbosecke.pebble.lexer.TokenStream;
-import com.mitchellbosecke.pebble.node.AbstractRenderableNode;
-import com.mitchellbosecke.pebble.node.BodyNode;
-import com.mitchellbosecke.pebble.node.RenderableNode;
-import com.mitchellbosecke.pebble.node.expression.Expression;
-import com.mitchellbosecke.pebble.parser.Parser;
-import com.mitchellbosecke.pebble.template.EvaluationContext;
-import com.mitchellbosecke.pebble.template.PebbleTemplateImpl;
-import com.mitchellbosecke.pebble.template.ScopeChain;
-import com.mitchellbosecke.pebble.tokenParser.AbstractTokenParser;
-import com.mitchellbosecke.pebble.tokenParser.TokenParser;
+import io.pebbletemplates.pebble.error.ParserException;
+import io.pebbletemplates.pebble.error.PebbleException;
+import io.pebbletemplates.pebble.extension.NodeVisitor;
+import io.pebbletemplates.pebble.lexer.Token;
+import io.pebbletemplates.pebble.lexer.TokenStream;
+import io.pebbletemplates.pebble.node.AbstractRenderableNode;
+import io.pebbletemplates.pebble.node.BodyNode;
+import io.pebbletemplates.pebble.node.RenderableNode;
+import io.pebbletemplates.pebble.node.expression.Expression;
+import io.pebbletemplates.pebble.parser.Parser;
+import io.pebbletemplates.pebble.template.EvaluationContextImpl;
+import io.pebbletemplates.pebble.template.PebbleTemplateImpl;
+import io.pebbletemplates.pebble.template.ScopeChain;
+import io.pebbletemplates.pebble.tokenParser.TokenParser;
 
 /**
  * {@link TokenParser} for the 'lazyFor' node.
@@ -47,7 +46,7 @@ import com.mitchellbosecke.pebble.tokenParser.TokenParser;
  * @since 3.3
  *
  */
-public class LazyForTokenParser extends AbstractTokenParser {
+public class LazyForTokenParser implements TokenParser {
 
     @Override
     public RenderableNode parse(Token token, Parser parser) throws ParserException {
@@ -91,7 +90,7 @@ public class LazyForTokenParser extends AbstractTokenParser {
         }
 
         @Override
-        public void render(PebbleTemplateImpl self, Writer writer, EvaluationContext context) throws PebbleException, IOException {
+        public void render(PebbleTemplateImpl self, Writer writer, EvaluationContextImpl context) throws PebbleException, IOException {
             Object value = iterableExpression.evaluate(self, context);
             if (value == null) {
                 return;
