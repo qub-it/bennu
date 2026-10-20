@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.fenixedu</groupId>
 		<artifactId>fenixedu-project</artifactId>
-		<version>3.0.0-beta1</version>
+		<version>4.0.0-FORK</version>
 		<relativePath />
 	</parent>
 
@@ -16,7 +16,7 @@
 
 	<properties>
 		<code.generator.class>pt.ist.fenixframework.backend.jvstm.JVSTMCodeGenerator</code.generator.class>
-		<version.ff>3.0.0</version.ff>
+		<version.ff>4.0.0-FORK</version.ff>
 	</properties>
 
 	<build>
