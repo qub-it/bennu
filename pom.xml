@@ -29,7 +29,7 @@
         <version.ch.qos.logback.logback.classic>1.1.3</version.ch.qos.logback.logback.classic>
         <version.com.google.code.gson.gson>2.6.1</version.com.google.code.gson.gson>
         <version.com.google.guava.guava>33.2.1-jre</version.com.google.guava.guava>
-        <version.com.mitchellbosecke.pebble>2.3.0</version.com.mitchellbosecke.pebble>
+        <version.io.pebbletemplates.pebble>3.2.2</version.io.pebbletemplates.pebble>
         <version.org.apache.tika.tika-core>1.11</version.org.apache.tika.tika-core>
     </properties>
 
@@ -91,9 +91,9 @@
                 <version>${version.ch.qos.logback.logback.classic}</version>
             </dependency>
             <dependency>
-                <groupId>com.mitchellbosecke</groupId>
+                <groupId>io.pebbletemplates</groupId>
                 <artifactId>pebble</artifactId>
-                <version>${version.com.mitchellbosecke.pebble}</version>
+                <version>${version.io.pebbletemplates.pebble}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.tika</groupId>

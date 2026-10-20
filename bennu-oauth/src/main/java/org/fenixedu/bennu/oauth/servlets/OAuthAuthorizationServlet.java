@@ -65,14 +65,15 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.net.HttpHeaders;
 import com.google.gson.JsonObject;
-import com.mitchellbosecke.pebble.PebbleEngine;
-import com.mitchellbosecke.pebble.PebbleEngine.Builder;
-import com.mitchellbosecke.pebble.error.LoaderException;
-import com.mitchellbosecke.pebble.error.PebbleException;
-import com.mitchellbosecke.pebble.extension.AbstractExtension;
-import com.mitchellbosecke.pebble.extension.Function;
-import com.mitchellbosecke.pebble.loader.ClasspathLoader;
-import com.mitchellbosecke.pebble.template.PebbleTemplate;
+import io.pebbletemplates.pebble.PebbleEngine;
+import io.pebbletemplates.pebble.PebbleEngine.Builder;
+import io.pebbletemplates.pebble.error.LoaderException;
+import io.pebbletemplates.pebble.error.PebbleException;
+import io.pebbletemplates.pebble.extension.AbstractExtension;
+import io.pebbletemplates.pebble.extension.Function;
+import io.pebbletemplates.pebble.loader.ClasspathLoader;
+import io.pebbletemplates.pebble.template.EvaluationContext;
+import io.pebbletemplates.pebble.template.PebbleTemplate;
 
 /**
  * Servlet implementation class OAuthAuthorizationServlet
@@ -465,7 +466,7 @@ public class OAuthAuthorizationServlet extends HttpServlet {
         }
 
         @Override
-        public Object execute(Map<String, Object> args) {
+        public Object execute(Map<String, Object> args, PebbleTemplate self, EvaluationContext context, int lineNumber) {
             String bundle = (String) args.get("bundle");
             String key = args.get("key").toString();
             return BundleUtil.getString(bundle, key, arguments(args));

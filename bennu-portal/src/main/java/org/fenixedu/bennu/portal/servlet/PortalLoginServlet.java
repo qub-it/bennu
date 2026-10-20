@@ -35,12 +35,12 @@ import org.fenixedu.bennu.portal.login.LoginProvider;
 import org.fenixedu.commons.i18n.I18N;
 
 import com.google.common.base.Strings;
-import com.mitchellbosecke.pebble.PebbleEngine;
-import com.mitchellbosecke.pebble.PebbleEngine.Builder;
-import com.mitchellbosecke.pebble.error.LoaderException;
-import com.mitchellbosecke.pebble.error.PebbleException;
-import com.mitchellbosecke.pebble.loader.ClasspathLoader;
-import com.mitchellbosecke.pebble.template.PebbleTemplate;
+import io.pebbletemplates.pebble.PebbleEngine;
+import io.pebbletemplates.pebble.PebbleEngine.Builder;
+import io.pebbletemplates.pebble.error.LoaderException;
+import io.pebbletemplates.pebble.error.PebbleException;
+import io.pebbletemplates.pebble.loader.ClasspathLoader;
+import io.pebbletemplates.pebble.template.PebbleTemplate;
 import com.qubit.terra.framework.services.logging.Log;
 import com.qubit.terra.framework.services.logging.LogContextStandards;
 import com.qubit.terra.portal.services.ThirdPartyLoginBean;

@@ -1,6 +1,6 @@
 package org.fenixedu.bennu.portal.service;
 
-import com.mitchellbosecke.pebble.extension.AbstractExtension;
+import io.pebbletemplates.pebble.extension.AbstractExtension;
 
 import jakarta.servlet.ServletContext;
 import java.util.List;

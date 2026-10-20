@@ -44,7 +44,7 @@
             <artifactId>jakarta.ws.rs-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.mitchellbosecke</groupId>
+            <groupId>io.pebbletemplates</groupId>
             <artifactId>pebble</artifactId>
         </dependency>
         <dependency>

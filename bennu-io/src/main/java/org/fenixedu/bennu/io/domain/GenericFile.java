@@ -314,7 +314,7 @@ public abstract class GenericFile extends GenericFile_Base {
 
     @Deprecated
     protected String guessContentType(final String filename) {
-        // Removed code as it depended on javax.
+        // Removed code as it depended on jakarta.
         // The method is already deprecated and not in use.
         // So we foresee that the impact is negligible
         //

@@ -23,7 +23,7 @@
             <version>33.2.1-jre</version>
     </dependency>
         <dependency>
-            <groupId>com.mitchellbosecke</groupId>
+            <groupId>io.pebbletemplates</groupId>
             <artifactId>pebble</artifactId>
         </dependency>
         <dependency>
