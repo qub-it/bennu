@@ -1,5 +1,7 @@
 package org.fenixedu.bennu.portal.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -7,25 +9,28 @@ import org.apache.commons.lang.StringUtils;
 import org.fenixedu.bennu.portal.model.Functionality;
 import org.fenixedu.commons.i18n.LocalizedString;
 
+import com.qubit.terra.portal.domain.menus.MenuUrlParameter;
+
+import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 
 /**
  * {@link MenuFunctionality}s are the leafs of the functionality tree. They represent a concrete functionality installed in the
  * menu.
- * 
+ *
  * @author João Carvalho (joao.pedro.carvalho@tecnico.ulisboa.pt)
- * 
+ *
  */
 public class MenuFunctionality extends MenuFunctionality_Base implements com.qubit.terra.portal.domain.menus.MenuFunctionality {
 
     /**
      * Creates a new {@link MenuFunctionality} under the given container, based on the given {@link Functionality}.
-     * 
+     *
      * @param parent
      *            The parent container for the new item
      * @param functionality
      *            The {@link Functionality} that will provide the require information for this functionality
-     * 
+     *
      * @throws IllegalArgumentException
      *             If {@code parent} is null.
      */
@@ -43,7 +48,7 @@ public class MenuFunctionality extends MenuFunctionality_Base implements com.qub
 
     /**
      * Creates a new {@link MenuFunctionality} under the given container, based on the provider parameters.
-     * 
+     *
      * @param parent
      *            The parent container for the new item
      * @param visible
@@ -60,7 +65,7 @@ public class MenuFunctionality extends MenuFunctionality_Base implements com.qub
      *            The title for this functionality
      * @param path
      *            The semantic-url path for this functionality
-     * 
+     *
      * @throws IllegalArgumentException
      *             If {@code parent} is null.
      */
@@ -121,7 +126,7 @@ public class MenuFunctionality extends MenuFunctionality_Base implements com.qub
 
     /**
      * Looks up in the functionality tree, the functionality with the given provider and key.
-     * 
+     *
      * @param provider
      *            The provider of the functionality
      * @param key
@@ -169,18 +174,18 @@ public class MenuFunctionality extends MenuFunctionality_Base implements com.qub
 
     public String getParsedDocumentationUrl() {
         if (this.getDocumentationUrl() != null && PortalConfiguration.getInstance().getDocumentationBaseUrl() != null) {
-            return this.getDocumentationUrl().replaceAll("\\{base\\}",
-                    PortalConfiguration.getInstance().getDocumentationBaseUrl());
+            return this.getDocumentationUrl()
+                    .replaceAll("\\{base\\}", PortalConfiguration.getInstance().getDocumentationBaseUrl());
         }
         return "";
     }
 
     /**
      * "Moves" this functionality to the selected point in the menu.
-     * 
+     *
      * As {@link MenuItem}s are immutable by default, this instance is deleted, and
      * a new copy of it is created under the specified container.
-     * 
+     *
      * @param newParent
      *            The new parent in which to insert the copy of this functionality
      * @return
@@ -237,4 +242,16 @@ public class MenuFunctionality extends MenuFunctionality_Base implements com.qub
         setProvider(provider);
     }
 
+    @Override
+    public List<MenuUrlParameter> getUrlParameters() {
+        return new ArrayList<>(getParameterSet().stream().sorted().toList());
+    }
+
+    @Atomic
+    @Override
+    public void delete() {
+        for (; !getUrlParameters().isEmpty(); getUrlParameters().iterator().next().delete()) {
+        }
+        super.delete();
+    }
 }
