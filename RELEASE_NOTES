@@ -1,3 +1,4 @@
+- Refactor: Removing bennu-spring [#qubIT-Fenix-9802]
 - New feature: Adds the MenuUrlParameter implementation MenuEntryUrlParameter [#qubIT-Omnis-11603]
 
 8.0.0-FORK (20-10-2026)
