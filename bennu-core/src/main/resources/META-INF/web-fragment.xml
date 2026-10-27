@@ -36,12 +36,6 @@
 		<filter-class>org.fenixedu.bennu.core.i18n.I18NFilter</filter-class>
 		<async-supported>true</async-supported>
 	</filter>
-	<filter>
-		<filter-name>BennuExceptionHandler</filter-name>
-		<filter-class>org.fenixedu.bennu.core.servlet.ExceptionHandlerFilter</filter-class>
-		<async-supported>true</async-supported>
-	</filter>
-
 	<filter-mapping>
 		<filter-name>CharsetEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
