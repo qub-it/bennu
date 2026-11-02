@@ -1,4 +1,5 @@
 - Refactor: Removes default theme module [#qubIT-Omnis-10222]
+- Refactor: Removes bennu-toolkit module [#qubIT-Fenix-9834]
 - Refactor: Moves ExceptionHandlerFilter behaviour to ExceptionHandlerServlet in fenixedu-base [#qubIT-Omnis-11736]
 
 8.1.0-FORK (23-10-2026)

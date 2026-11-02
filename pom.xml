@@ -138,7 +138,6 @@
         <module>bennu-core</module>
         <module>bennu-io</module>
         <module>bennu-scheduler</module>
-        <module>bennu-toolkit</module>
         <module>bennu-portal</module>
         <module>bennu-cas-client</module>
         <module>bennu-maven-plugin</module>
