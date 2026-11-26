@@ -11,7 +11,9 @@ public class GenericFile {
     protected String checksumAlgorithm;
 }
 
-public class GroupBasedFile extends GenericFile;
+public class GroupBasedFile extends GenericFile {
+	protected String accessControlExpression;
+}
 
 public class FileRawData {
 	protected String contentKey;

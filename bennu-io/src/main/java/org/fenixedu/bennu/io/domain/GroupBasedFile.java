@@ -5,7 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.bennu.core.domain.groups.PersistentGroup;
 import org.fenixedu.bennu.core.groups.Group;
+import org.apache.commons.lang3.StringUtils;
+
+import com.qubit.terra.framework.services.ServiceProvider;
+import com.qubit.terra.framework.services.accessControl.AccessControlService;
 
 public final class GroupBasedFile extends GroupBasedFile_Base {
     public GroupBasedFile(String displayName, String filename, byte[] content, Group accessGroup) {
@@ -40,7 +45,7 @@ public final class GroupBasedFile extends GroupBasedFile_Base {
         init(displayName, filename, stream);
         setAccessGroup(accessGroup);
     }
-    
+
 
     public Group getAccessGroup() {
         return getGroup().toGroup();
@@ -51,13 +56,25 @@ public final class GroupBasedFile extends GroupBasedFile_Base {
     }
 
     @Override
+    protected void setGroup(PersistentGroup group) {
+        super.setGroup(group);
+        setAccessControlExpression(null);
+    }
+
+    @Override
     public boolean isAccessible(User user) {
-        return getGroup().isMember(user);
+        return isAccessible(user, getAccessControlExpression(), getGroup());
+    }
+
+    static boolean isAccessible(User user, String omnisExpression, PersistentGroup legacyAccessGroup) {
+        String expression = StringUtils.defaultIfBlank(omnisExpression, legacyAccessGroup.toGroup().getExpression());
+        return ServiceProvider.getService(AccessControlService.class).hasAccess(user.getUsername(), expressionToCheck);
     }
 
     @Override
     public void delete() {
         setGroup(null);
+        setAccessControlExpression(null);
         super.delete();
     }
 }
